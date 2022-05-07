@@ -65,8 +65,9 @@
             <div>mail: <input type="text" name="NowyMail" value="{{$uzytkownicyData->Mail}}" maxlength="40" pattern="^[a-z0-9]+\@[a-z]+\.[a-z]+"></input></div>
         </div>
         @endforeach
+
         <div class="mtop-20"><input class="przycisk" type="submit" value="Zmień Dane"></input></div>
-        <div class="mtop-20"><a class="przycisk" href='javascript: history.go(-1)'>Anuluj</a></div>
+        <div class="mtop-20"><button class="przycisk" onclick='javascript: history.go(-1)'>Anuluj</button></div>
         </form>
     </div>
     <div class="stopka display-flex content-space-between">

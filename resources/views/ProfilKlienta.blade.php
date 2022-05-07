@@ -65,14 +65,24 @@
         </div>
         @endforeach
         <div class="display-flex">
-        <div class="mtop-20"><a class="przycisk" href='Wyloguj'>Wyloguj</a></div> 
-        <div class="mtop-20"><a class="przycisk" href='Zmien_Dane'>Zmień Dane</a></div> 
-        <div class="mtop-20"><a class="przycisk" href='Usun_Konto'>Usun konto</a></div> 
+            <div class="mtop-20"><button class="przycisk" onclick="confirmLogout()">Wyloguj</button></div>
+            <div class="mtop-20"><button class="przycisk" onclick="location='Zmien_Dane'">Zmień Dane</button></div>
+            <div class="mtop-20"><button class="przycisk" onclick="confirmDelete()">Usun konto</button></div>
         </div>
 
 
-        <div><h1>Moje zamówienia</h1></div>
-        <div>Zamówienie 1</div>
+        <div>
+            <h1>Moje Zamówienia:</h1>
+        </div>
+        @foreach($zamowienia as $zamowieniaData)
+        <div>Numer_Zamówienia: {{$zamowieniaData->NR_ZAMOWIENIA}}</div>
+        <div>Stan_Realizacji: {{$zamowieniaData->Stan_Realizacji}}</div>
+        <div>Data Zamówienia: {{$zamowieniaData->Data_zamowienia}}</div>
+        <div>Data Realizacji: {{$zamowieniaData->Data_realizacji}}</div>
+        <div>Opis: {{$zamowieniaData->Opis}}</div>
+        <div>ID_Mechanika: {{$zamowieniaData->ID_Mechanika}}</div>
+        <div>ID_Klienta {{$zamowieniaData->ID_Klienta}}</div>
+        @endforeach
     </div>
 
     <div class="stopka display-flex content-space-between">
@@ -87,5 +97,26 @@
 
 
 </body>
+<script>
+    function confirmDelete() {
+        let confirmAction = confirm("Czy na pewno chcesz usunąć konto? Tej operacji nie można cofnąć!");
+        if (confirmAction) {
+            alert("Potwierdzono usunięcie konta!");
+            location = "Usun_Konto";
+        } else {
+            alert("Anulowano usunięcie konta!");
+        }
+    }
+
+    function confirmLogout() {
+        let confirmAction = confirm("Czy na pewno chcesz się wylogować z konta {{$login}}?");
+        if (confirmAction) {
+            alert("Potwierdzono wylogowanie!");
+            location = "Wyloguj";
+        } else {
+            alert("Anulowano wylogowanie!");
+        }
+    }
+</script>
 
 </html>

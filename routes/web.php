@@ -11,6 +11,7 @@ if (session_status() == PHP_SESSION_NONE) {
 if (isset($_SESSION['newsession']) && isset($_SESSION['login'])) {
     $this->rola = $_SESSION['newsession'];
     $this->login = $_SESSION['login'];
+    $this->login = $_SESSION['id'];
 } else {
     $this->rola = "Zaloguj/Zarejestruj";
 }
@@ -79,3 +80,5 @@ Route::get('/Zmien_Dane',[EdycjaController::class,'EdycjaUzytkownika']);
 Route::get('/NoweDane',[EdycjaController::class,'ZmienDane']);
 
 Route::get('/Usun_Konto',[EdycjaController::class,'UsunKonto']);
+
+Route::get('/Dodaj_Status',[EdycjaController::class,'DodajStatus']);

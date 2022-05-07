@@ -12,6 +12,7 @@ class SerwisController extends Controller
         if (isset($_SESSION['newsession']) && isset($_SESSION['login'])) {
             $this->rola = $_SESSION['newsession'];
             $this->login = $_SESSION['login'];
+            $this->ID = $_SESSION['id'];
         }else{
         $this->rola="Zaloguj/Zarejestruj";
         $this->login="Brak";
@@ -57,24 +58,36 @@ class SerwisController extends Controller
         $this->uzytkownicy=DB::table('uzytkownicy')->where('Login', $this->login)->get();
     }
     public function WyswietlanieAdmina(){
+        //Dane Osobowe Admina
         $this->DaneUzytkownika();
         $uzytkownicy=$this->uzytkownicy;
+        //Wszystkie informacje dla Admina
         $this->PanelAdmina();
         $pracownicy=$this->pracownicy;
         $admini=$this->admini;
         $klienci=$this->klienci;
         $order=$this->order;
-        return view('ProfilAdmin',compact('uzytkownicy','pracownicy','admini','klienci','order'),['rola'=>$this->rola]);
+
+        return view('ProfilAdmin',compact('uzytkownicy','pracownicy','admini','klienci','order'),['rola'=>$this->rola , 'login'=>$this->login]);
     }
     public function WyswietlanieMechanika(){
+        //Dane Osobowe Mechanika
         $this->DaneUzytkownika();
         $uzytkownicy=$this->uzytkownicy;
-        return view('ProfilMechanik',compact('uzytkownicy'),['rola'=>$this->rola]);
+        //Zamowienia Mechanika
+        $zamowienia=DB::table('zamowienie')->where('ID_Mechanika',$this->ID)->get();
+
+        return view('ProfilMechanik',compact('uzytkownicy','zamowienia'),['rola'=>$this->rola , 'login'=>$this->login , 'ID'=>$this->ID]);
     }
     public function WyswietlanieKlienta(){
+        //Dane Osobowe Klienta
         $this->DaneUzytkownika();
         $uzytkownicy=$this->uzytkownicy;
-        return view('ProfilKlienta',compact('uzytkownicy'),['rola'=>$this->rola]);
-    }
+        //Zamowienia Klienta
+        $zamowienia=DB::table('zamowienie')->where('ID_Klienta',$this->ID)->get();   
 
+        return view('ProfilKlienta',compact('uzytkownicy','zamowienia'),['rola'=>$this->rola , 'login'=>$this->login , 'ID'=>$this->ID]);
+    }
+  
+    
 }

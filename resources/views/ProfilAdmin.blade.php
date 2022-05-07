@@ -65,8 +65,8 @@
         </div>
         @endforeach
         <div class="display-flex">
-        <div class="mtop-20"><a class="przycisk" href='Wyloguj'>Wyloguj</a></div> 
-        <div class="mtop-20"><a class="przycisk" href='Zmien_Dane'>Zmień Dane</a></div> 
+            <div class="mtop-20"><button class="przycisk" onclick="confirmLogout()">Wyloguj</button></div>
+            <div class="mtop-20"><button class="przycisk" onclick="location='Zmien_Dane'">Zmień Dane</button></div>
         </div>
 
         <div class="display-flex content-space-between">
@@ -127,11 +127,11 @@
                     <h1>Zamowienia:</h1>
                 </div>
                 @foreach($order as $orderData)
-                <div>Numer_Zamówienia: {{$orderData->NR_ZAMOWIENIA}}</div>
+                <div class="mtop-20">Numer_Zamówienia: {{$orderData->NR_ZAMOWIENIA}}</div>
                 <div>Stan_Realizacji: {{$orderData->Stan_Realizacji}}</div>
                 <div>Data Zamówienia: {{$orderData->Data_zamowienia}}</div>
                 <div>Data Realizacji: {{$orderData->Data_realizacji}}</div>
-                <div>Realizacja: {{$orderData->Opis}}</div>
+                <div>Opis: {{$orderData->Opis}}</div>
                 <div>ID_Mechanika: {{$orderData->ID_Mechanika}}</div>
                 <div>ID_Klienta {{$orderData->ID_Klienta}}</div>
                 @endforeach
@@ -152,5 +152,16 @@
 
 
 </body>
+<script>
+    function confirmLogout() {
+        let confirmAction = confirm("Czy na pewno chcesz się wylogować z konta {{$login}}?");
+        if (confirmAction) {
+            location = "Wyloguj";
+            alert("Potwierdzono wylogowanie!");
+        } else {
+            alert("Anulowano wylogowanie!");
+        }
+    }
+</script>
 
 </html>

@@ -9,6 +9,7 @@ class LoginController extends Controller
 {
     public $login;
     public $rola;
+    public $ID;
 
     public function login(){
         $log=$_GET['login'];
@@ -18,6 +19,7 @@ class LoginController extends Controller
         $this->login = $uzytkownik->Login;
         $hasloBaza = $uzytkownik->Haslo;
         $this->rola = $uzytkownik->Rola;
+        $this->ID = $uzytkownik->ID_Uzytkownika;
         
         if($this->login == $log && $hasloBaza == $haslo){
             if (session_status() == PHP_SESSION_NONE){
@@ -25,6 +27,7 @@ class LoginController extends Controller
             }
             $_SESSION["newsession"]=$this->rola;
             $_SESSION['login']=$this->login;
+            $_SESSION['id']=$this->ID;
             return view('main',['rola'=>$this->rola]);
         }else{
             return view('login');

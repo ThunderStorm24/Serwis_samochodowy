@@ -14,6 +14,7 @@ class EdycjaController extends SerwisController
         if (isset($_SESSION['newsession']) && isset($_SESSION['login'])) {
             $this->rola = $_SESSION['newsession'];
             $this->login = $_SESSION['login'];
+            $this->ID=$_SESSION['id'];
         } else {
             $this->rola = "Zaloguj/Zarejestruj";
             $this->login = "Brak";
@@ -24,7 +25,7 @@ class EdycjaController extends SerwisController
         $this->sesja();
         $this->DaneUzytkownika();
         $uzytkownicy = $this->uzytkownicy;
-        return view('Edycja', compact('uzytkownicy'), ['rola' => $this->rola]);
+        return view('Edycja', compact('uzytkownicy'), ['rola' => $this->rola , 'login'=>$this->login , 'ID'=>$this->ID]);
     }
     public function ZmienDane()
     {
@@ -50,17 +51,33 @@ class EdycjaController extends SerwisController
             $admini=$this->admini;
             $klienci=$this->klienci;
             $order=$this->order;
-            return view('ProfilAdmin',compact('uzytkownicy','pracownicy','admini','klienci','order'),['rola'=>$this->rola]);
+            return view('ProfilAdmin',compact('uzytkownicy','pracownicy','admini','klienci','order'),['rola'=>$this->rola , 'login'=>$this->login , 'ID'=>$this->ID]);
         } 
         if ($this->rola == "Mechanik") {
-            return view('ProfilMechanik', compact('uzytkownicy'), ['rola' => $this->rola]);
+            $zamowienia=DB::table('zamowienie')->where('ID_Mechanika',$this->ID)->get();
+            return view('ProfilMechanik', compact('uzytkownicy','zamowienia'), ['rola' => $this->rola , 'login'=>$this->login , 'ID'=>$this->ID]);
         }
         if ($this->rola == "Klient") {
-            return view('ProfilKlienta', compact('uzytkownicy'), ['rola' => $this->rola]);
+            $zamowienia=DB::table('zamowienie')->where('ID_Klienta',$this->ID)->get(); 
+            return view('ProfilKlienta', compact('uzytkownicy','zamowienia'), ['rola' => $this->rola , 'login'=>$this->login , 'ID'=>$this->ID]);
         }
     }
     public function UsunKonto(){
-        echo "Do zrobienia";
-        echo "UwU";
+        $this->sesja();
+        $usun=DB::delete('delete from uzytkownicy where Login=?',[$this->login]);
+        return view('Logowanie');
+    }
+    public function DodajStatus(){
+        $this->sesja();
+        $this->WyswietlanieMechanika();
+        $uzytkownicy=$this->uzytkownicy;
+        $zamowienia=DB::table('zamowienie')->where('ID_Mechanika',$this->ID)->get();
+        $opis=$_GET['opis'];
+        $stan=$_GET['stan'];
+        $zamow=$_GET['zamow'];
+        
+        $update=DB::update('update zamowienie set Opis=? , Stan_Realizacji=? where NR_ZAMOWIENIA=? ' , [$opis,$stan,$zamow]);
+
+        return view('ProfilMechanik',compact('uzytkownicy','zamowienia'),['rola'=>$this->rola , 'login'=>$this->login , 'ID'=>$this->ID]);
     }
 }
