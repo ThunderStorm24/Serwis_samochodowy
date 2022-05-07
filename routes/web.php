@@ -4,6 +4,7 @@ use App\Http\Controllers\EdycjaController;
 use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SerwisController;
+use App\Http\Controllers\DodawanieController;
 
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
@@ -49,7 +50,7 @@ Route::get('/Register', function () {
     return view('Register');
 });
 
-Route::get('/Zarejestruj', [SerwisController::class, 'Rejestracja']);
+Route::get('/Zarejestruj', [DodawanieController::class, 'Rejestracja']);
 
 Route::get('/Loguj', [LoginController::class, 'login']);
 
@@ -82,3 +83,8 @@ Route::get('/NoweDane',[EdycjaController::class,'ZmienDane']);
 Route::get('/Usun_Konto',[EdycjaController::class,'UsunKonto']);
 
 Route::get('/Dodaj_Status',[EdycjaController::class,'DodajStatus']);
+
+Route::get('/DodawanieUzytkownikow', function (){
+    return view('RegisterAdmina');
+});
+Route::get('/ZarejestrujAdmin',[DodawanieController::class,'RejestracjaAdmin']);

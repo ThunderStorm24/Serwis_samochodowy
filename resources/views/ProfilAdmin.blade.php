@@ -67,6 +67,7 @@
         <div class="display-flex">
             <div class="mtop-20"><button class="przycisk" onclick="confirmLogout()">Wyloguj</button></div>
             <div class="mtop-20"><button class="przycisk" onclick="location='Zmien_Dane'">Zmień Dane</button></div>
+            <div class="mtop-20"><button class="przycisk" onclick="location='DodawanieUzytkownikow'">Dodaj Użytkowników</button></div>
         </div>
 
         <div class="display-flex content-space-between">

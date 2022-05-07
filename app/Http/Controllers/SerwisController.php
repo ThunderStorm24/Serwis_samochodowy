@@ -24,28 +24,6 @@ class SerwisController extends Controller
         $uslugi=DB::table('uslugi')->get();
         return view('Uslugi',compact('uslugi'),['rola'=>$this->rola]);
     }
-    public function Rejestracja()
-    {
-        $Rola="Klient";
-        $Imie=$_GET['imie'];
-        $Nazwisko=$_GET['nazwisko'];
-        $Ulica=$_GET['ulica'];
-        $Nr=$_GET['nrdom'];
-        $Miasto=$_GET['miasto'];
-        $Kod=$_GET['kod'];
-        $Telefon=$_GET['telefon'];
-        $Mail=$_GET['mail'];
-        $Login=$_GET['login'];
-        $Haslo=$_GET['haslo'];
-        $pHaslo=$_GET['phaslo'];
-
-        if($Haslo != $pHaslo){
-            return view('Register');
-        }
-        
-        $register=DB::insert('INSERT INTO uzytkownicy(Rola,Imie,Nazwisko,Ulica,Nr_domu,Miasto,Kod_pocztowy,Nr_telefonu,Mail,Login,Haslo) values(?,?,?,?,?,?,?,?,?,?,?)',[$Rola,$Imie,$Nazwisko,$Ulica,$Nr,$Miasto,$Kod,$Telefon,$Mail,$Login,$Haslo]);
-        return view('Login');
-    }
     public function PanelAdmina(){
         $this->sesja();
         $this->pracownicy=DB::table('uzytkownicy')->where('Rola','Mechanik')->get();
