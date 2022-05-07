@@ -1,0 +1,80 @@
+
+.box-info{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin-top:10%;
+  font-family:Fantasy;
+  font-size:40px;
+}
+.box-wrap{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin-bottom:10%;
+}
+.box{
+  text-align:center;
+  padding:30px;
+  margin:4%;
+  background:rgb(68, 7, 7);
+  width:30%;
+  border:1px solid #d6d6d6;
+  box-shadow:0 2px 3px 0px rgba(0,0,0,0.25);
+  border-radius:3px;
+  transition:.2s all; 
+}
+.box-wrap:hover .box{
+  filter:blur(3px);
+  opacity:.5;
+  transform: scale(.98);
+  box-shadow:none;
+} 
+.box-wrap:hover .box:hover{
+  transform:scale(1);
+  filter:blur(0px);
+  opacity:1;
+  box-shadow:0 8px 20px 0px rgba(0,0,0,0.125);
+}
+.box a{
+  background-color: rgb(218, 218, 218);
+  font-weight:bold;
+  color: black;
+  border: 2px solid rgb(0, 0, 0);
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+}
+.box a:hover, a:active {
+  background-color: green;
+  color: white;
+}
+.odnosnik a{
+  background-color: rgb(218, 218, 218);
+  font-weight:bold;
+  color: black;
+  border: 2px solid rgb(0, 0, 0);
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+}
+.odnosnik a:hover, a:active{
+  background-color: green;
+  color: white;
+}
+.przycisk{
+  background-color: rgb(218, 218, 218);
+  font-weight:bold;
+  color: black;
+  border: 2px solid rgb(0, 0, 0);
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+}
+.przycisk:hover{
+  background-color: rgb(0, 128, 85);
+  color: white;
+}
