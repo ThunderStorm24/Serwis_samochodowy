@@ -21,19 +21,39 @@ class SerwisController extends Controller
     public function uslugiPost()
     {
         $this->sesja();
-        $uslugi=DB::table('uslugi')->get();
+        //Wyswietlanie wszystkich usług na podstronie USŁUGI z bazy danych
+        $uslugi=DB::table('uslugi')
+        ->get();
         return view('Uslugi',compact('uslugi'),['rola'=>$this->rola]);
     }
     public function PanelAdmina(){
         $this->sesja();
-        $this->pracownicy=DB::table('uzytkownicy')->where('Rola','Mechanik')->get();
-        $this->admini=DB::table('uzytkownicy')->where('Rola','Admin')->get();
-        $this->klienci=DB::table('uzytkownicy')->where('Rola','Klient')->get();
-        $this->order=DB::table('zamowienie')->get();
+        
+        //Wyswietlanie uzytkownikow z rolą Mechanika
+        $this->pracownicy=DB::table('uzytkownicy')
+        ->where('Rola','Mechanik')
+        ->get();
+        
+        //Wyswietlanie uzytkownikow z rolą Admina
+        $this->admini=DB::table('uzytkownicy')
+        ->where('Rola','Admin')
+        ->get();
+
+        //Wyswietlanie uzytkownikow z rolą Klienta
+        $this->klienci=DB::table('uzytkownicy')
+        ->where('Rola','Klient')
+        ->get();
+
+        //Wyswietlanie zamówień
+        $this->order=DB::table('zamowienie')
+        ->get();
     }
     public function DaneUzytkownika(){
         $this->sesja();
-        $this->uzytkownicy=DB::table('uzytkownicy')->where('Login', $this->login)->get();
+        //Wyświetlanie uzytkownika gdzie login to login z sesji na ktorej jestesmy zalogowani
+        $this->uzytkownicy=DB::table('uzytkownicy')
+        ->where('Login', $this->login)
+        ->get();
     }
     public function WyswietlanieAdmina(){
         //Dane Osobowe Admina
@@ -55,7 +75,10 @@ class SerwisController extends Controller
         $this->DaneUzytkownika();
         $uzytkownicy=$this->uzytkownicy;
         //Zamowienia Mechanika
-        $zamowienia=DB::table('zamowienie')->where('ID_Mechanika',$this->ID)->get();
+        $zamowienia=DB::table('zamowienie')
+        ->where('ID_Mechanika',$this->ID)
+        ->get();
+
         $this->OpisZamowien();
         $uslugi=$this->uslugi;
 
@@ -66,7 +89,10 @@ class SerwisController extends Controller
         $this->DaneUzytkownika();
         $uzytkownicy=$this->uzytkownicy;
         //Zamowienia Klienta
-        $zamowienia=DB::table('zamowienie')->where('ID_Klienta',$this->ID)->get();   
+        $zamowienia=DB::table('zamowienie')
+        ->where('ID_Klienta',$this->ID)
+        ->get();   
+
         $this->OpisZamowien();
         $uslugi=$this->uslugi;
 
