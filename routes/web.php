@@ -75,7 +75,7 @@ if ($this->rola != "Zaloguj/Zarejestruj") {
     });
 }
 
-Route::get('/Wyloguj', [LoginController::class, 'doLogout']);
+Route::get('/Wyloguj    ', [LoginController::class, 'doLogout']);
 
 Route::get('/Zmien_Dane',[EdycjaController::class,'EdycjaUzytkownika']);
 Route::get('/NoweDane',[EdycjaController::class,'ZmienDane']);
@@ -90,3 +90,4 @@ Route::get('/DodawanieUzytkownikow', function (){
 Route::get('/ZarejestrujAdmin',[DodawanieController::class,'RejestracjaAdmin']);
 
 Route::get('/UsunUzytkownikow',[EdycjaController::class,'UsunUzytkownikow']);
+Route::get('/PokazUzytkownikow',[EdycjaController::class,'ZnajdzUzytkownikow']);
