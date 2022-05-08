@@ -45,8 +45,10 @@ class SerwisController extends Controller
         $admini=$this->admini;
         $klienci=$this->klienci;
         $order=$this->order;
+        $this->OpisZamowien();
+        $uslugi=$this->uslugi;
 
-        return view('ProfilAdmin',compact('uzytkownicy','pracownicy','admini','klienci','order'),['rola'=>$this->rola , 'login'=>$this->login]);
+        return view('ProfilAdmin',compact('uzytkownicy','pracownicy','admini','klienci','order','uslugi'),['rola'=>$this->rola , 'login'=>$this->login]);
     }
     public function WyswietlanieMechanika(){
         //Dane Osobowe Mechanika
@@ -54,8 +56,10 @@ class SerwisController extends Controller
         $uzytkownicy=$this->uzytkownicy;
         //Zamowienia Mechanika
         $zamowienia=DB::table('zamowienie')->where('ID_Mechanika',$this->ID)->get();
+        $this->OpisZamowien();
+        $uslugi=$this->uslugi;
 
-        return view('ProfilMechanik',compact('uzytkownicy','zamowienia'),['rola'=>$this->rola , 'login'=>$this->login , 'ID'=>$this->ID]);
+        return view('ProfilMechanik',compact('uzytkownicy','zamowienia','uslugi'),['rola'=>$this->rola , 'login'=>$this->login , 'ID'=>$this->ID]);
     }
     public function WyswietlanieKlienta(){
         //Dane Osobowe Klienta
@@ -63,9 +67,19 @@ class SerwisController extends Controller
         $uzytkownicy=$this->uzytkownicy;
         //Zamowienia Klienta
         $zamowienia=DB::table('zamowienie')->where('ID_Klienta',$this->ID)->get();   
+        $this->OpisZamowien();
+        $uslugi=$this->uslugi;
 
-        return view('ProfilKlienta',compact('uzytkownicy','zamowienia'),['rola'=>$this->rola , 'login'=>$this->login , 'ID'=>$this->ID]);
+        return view('ProfilKlienta',compact('uzytkownicy','zamowienia','uslugi'),['rola'=>$this->rola , 'login'=>$this->login , 'ID'=>$this->ID]);
     }
+    public function OpisZamowien(){
+        $this->uslugi=DB::table('uslugi_zamowienia')
+        ->join('uslugi','uslugi_zamowienia.ID_Uslugi','=','uslugi.ID_Uslugi')
+        ->join('zamowienie','uslugi_zamowienia.NR_ZAMOWIENIA','=','zamowienie.NR_ZAMOWIENIA')
+        ->get();
+        
+    }
+
   
     
 }

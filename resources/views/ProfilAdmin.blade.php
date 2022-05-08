@@ -70,75 +70,88 @@
             <div class="mtop-20"><button class="przycisk" onclick="location='DodawanieUzytkownikow'">Dodaj Użytkowników</button></div>
         </div>
 
-        <div class="display-flex content-space-between">
-            <div>
+        <form method="GET">
+            <div class="mtop-20">Wpisz ID_Uzytkownika ktorego chcesz usunac:</div>
+            <div><input class="przycisk" type="text" pattern="[0-9]{0,15}" name="ID"></input><button class="przycisk" type="submit" onclick="confirmDelete()">Usun</button></div>
+            @isset($message)<div><b>{{$message}}</b></div>@endif
+        </form>
+        <div>
+            <div class="display-flex content-space-between">
                 <div>
-                    <h1>Pracownicy:</h1>
+
+                    <div>
+                        <h1>Pracownicy:</h1>
+                    </div>
+
+                    @foreach($pracownicy as $pracownicyData)
+                    <div class="mtop-20">ID_Uzytkownika: {{$pracownicyData->ID_Uzytkownika}}</div>
+                    <div>Imie: {{$pracownicyData->Imie}}</div>
+                    <div>Nazwisko: {{$pracownicyData->Nazwisko}}</div>
+                    <div>Ulica: {{$pracownicyData->Ulica}}</div>
+                    <div>Nr_Domu/Mieszkania: {{$pracownicyData->Nr_domu}}</div>
+                    <div>Miasto: {{$pracownicyData->Miasto}}</div>
+                    <div>Kod pocztowy: {{$pracownicyData->Kod_pocztowy}}</div>
+                    <div>Numer telefonu: {{$pracownicyData->Nr_telefonu}}</div>
+                    <div>mail: {{$pracownicyData->Mail}}</div>
+                    @endforeach
+
                 </div>
-                @foreach($pracownicy as $pracownicyData)
-                <div class="mtop-20">ID_Uzytkownika: {{$pracownicyData->ID_Uzytkownika}}</div>
-                <div>Imie: {{$pracownicyData->Imie}}</div>
-                <div>Nazwisko: {{$pracownicyData->Nazwisko}}</div>
-                <div>Ulica: {{$pracownicyData->Ulica}}</div>
-                <div>Nr_Domu/Mieszkania: {{$pracownicyData->Nr_domu}}</div>
-                <div>Miasto: {{$pracownicyData->Miasto}}</div>
-                <div>Kod pocztowy: {{$pracownicyData->Kod_pocztowy}}</div>
-                <div>Numer telefonu: {{$pracownicyData->Nr_telefonu}}</div>
-                <div>mail: {{$pracownicyData->Mail}}</div>
-                @endforeach
-            </div>
-            <div>
+
                 <div>
-                    <h1>Admini:</h1>
+                    <div>
+                        <h1>Admini:</h1>
+                    </div>
+                    @foreach($admini as $adminiData)
+                    <div class="mtop-20">ID_Uzytkownika: {{$adminiData->ID_Uzytkownika}}</div>
+                    <div>Imie: {{$adminiData->Imie}}</div>
+                    <div>Nazwisko: {{$adminiData->Nazwisko}}</div>
+                    <div>Ulica: {{$adminiData->Ulica}}</div>
+                    <div>Nr_Domu/Mieszkania: {{$adminiData->Nr_domu}}</div>
+                    <div>Miasto: {{$adminiData->Miasto}}</div>
+                    <div>Kod pocztowy: {{$adminiData->Kod_pocztowy}}</div>
+                    <div>Numer telefonu: {{$adminiData->Nr_telefonu}}</div>
+                    <div>mail: {{$adminiData->Mail}}</div>
+                    @endforeach
+
                 </div>
-                @foreach($admini as $adminiData)
-                <div class="mtop-20">ID_Uzytkownika: {{$adminiData->ID_Uzytkownika}}</div>
-                <div>Imie: {{$adminiData->Imie}}</div>
-                <div>Nazwisko: {{$adminiData->Nazwisko}}</div>
-                <div>Ulica: {{$adminiData->Ulica}}</div>
-                <div>Nr_Domu/Mieszkania: {{$adminiData->Nr_domu}}</div>
-                <div>Miasto: {{$adminiData->Miasto}}</div>
-                <div>Kod pocztowy: {{$adminiData->Kod_pocztowy}}</div>
-                <div>Numer telefonu: {{$adminiData->Nr_telefonu}}</div>
-                <div>mail: {{$adminiData->Mail}}</div>
-                @endforeach
 
-            </div>
-
-            <div>
                 <div>
-                    <h1>Klienci:</h1>
+                    <div>
+                        <h1>Klienci:</h1>
+                    </div>
+                    @foreach($klienci as $klienciData)
+                    <div class="mtop-20">ID_Uzytkownika: {{$klienciData->ID_Uzytkownika}}</div>
+                    <div>Imie: {{$klienciData->Imie}}</div>
+                    <div>Nazwisko: {{$klienciData->Nazwisko}}</div>
+                    <div>Ulica: {{$klienciData->Ulica}}</div>
+                    <div>Nr_Domu/Mieszkania: {{$klienciData->Nr_domu}}</div>
+                    <div>Miasto: {{$klienciData->Miasto}}</div>
+                    <div>Kod pocztowy: {{$klienciData->Kod_pocztowy}}</div>
+                    <div>Numer telefonu: {{$klienciData->Nr_telefonu}}</div>
+                    <div>mail: {{$klienciData->Mail}}</div>
+                    @endforeach
+
                 </div>
-                @foreach($klienci as $klienciData)
-                <div class="mtop-20">ID_Uzytkownika: {{$klienciData->ID_Uzytkownika}}</div>
-                <div>Imie: {{$klienciData->Imie}}</div>
-                <div>Nazwisko: {{$klienciData->Nazwisko}}</div>
-                <div>Ulica: {{$klienciData->Ulica}}</div>
-                <div>Nr_Domu/Mieszkania: {{$klienciData->Nr_domu}}</div>
-                <div>Miasto: {{$klienciData->Miasto}}</div>
-                <div>Kod pocztowy: {{$klienciData->Kod_pocztowy}}</div>
-                <div>Numer telefonu: {{$klienciData->Nr_telefonu}}</div>
-                <div>mail: {{$klienciData->Mail}}</div>
-                @endforeach
 
-            </div>
-
-            <div>
                 <div>
-                    <h1>Zamowienia:</h1>
+                    <div>
+                        <h1>Zamowienia:</h1>
+                    </div>
+                    @foreach($order as $orderData)
+                    <div class="mtop-20">Numer_Zamówienia: {{$orderData->NR_ZAMOWIENIA}}</div>
+                    <div>Stan_Realizacji: {{$orderData->Stan_Realizacji}}</div>
+                    <div>Data Zamówienia: {{$orderData->Data_zamowienia}}</div>
+                    <div>Data Realizacji: {{$orderData->Data_realizacji}}</div>
+                    <div>Opis: {{$orderData->Opis}}</div>
+                    <div>ID_Mechanika: {{$orderData->ID_Mechanika}}</div>
+                    <div>ID_Klienta {{$orderData->ID_Klienta}}</div>
+                    <div>Uslugi: @foreach($uslugi as $uslugiData) @if($uslugiData->NR_ZAMOWIENIA==$orderData->NR_ZAMOWIENIA) ({{$uslugiData->Nazwa_Uslugi}}) @endif @endforeach</div>
+                    <div>Cena: @foreach($uslugi as $uslugiData) @if($uslugiData->NR_ZAMOWIENIA==$orderData->NR_ZAMOWIENIA) {{$uslugiData->Koszt}} zł @endif @endforeach</div>
+                    @endforeach
+
                 </div>
-                @foreach($order as $orderData)
-                <div class="mtop-20">Numer_Zamówienia: {{$orderData->NR_ZAMOWIENIA}}</div>
-                <div>Stan_Realizacji: {{$orderData->Stan_Realizacji}}</div>
-                <div>Data Zamówienia: {{$orderData->Data_zamowienia}}</div>
-                <div>Data Realizacji: {{$orderData->Data_realizacji}}</div>
-                <div>Opis: {{$orderData->Opis}}</div>
-                <div>ID_Mechanika: {{$orderData->ID_Mechanika}}</div>
-                <div>ID_Klienta {{$orderData->ID_Klienta}}</div>
-                @endforeach
 
             </div>
-
         </div>
     </div>
     <div class="stopka display-flex content-space-between">
@@ -161,6 +174,15 @@
             alert("Potwierdzono wylogowanie!");
         } else {
             alert("Anulowano wylogowanie!");
+        }
+    }
+    function confirmDelete() {
+        let confirmAction = confirm("Czy na pewno chcesz usunąć użytkownika o tym ID?");
+        if (confirmAction) {
+            location = "UsunUzytkownikow";
+            alert("Potwierdzono Usunięcie!");
+        } else {
+            alert("Anulowano Usunięcie!");
         }
     }
 </script>

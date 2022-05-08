@@ -88,3 +88,5 @@ Route::get('/DodawanieUzytkownikow', function (){
     return view('RegisterAdmina');
 });
 Route::get('/ZarejestrujAdmin',[DodawanieController::class,'RejestracjaAdmin']);
+
+Route::get('/UsunUzytkownikow',[EdycjaController::class,'UsunUzytkownikow']);

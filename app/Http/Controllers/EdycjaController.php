@@ -31,6 +31,8 @@ class EdycjaController extends SerwisController
     {
         $this->sesja();
         $this->DaneUzytkownika();
+        $this->OpisZamowien();
+        $uslugi=$this->uslugi;
         $uzytkownicy = $this->uzytkownicy;
 
         $Imie = $_GET['NoweImie'];
@@ -51,15 +53,15 @@ class EdycjaController extends SerwisController
             $admini=$this->admini;
             $klienci=$this->klienci;
             $order=$this->order;
-            return view('ProfilAdmin',compact('uzytkownicy','pracownicy','admini','klienci','order'),['rola'=>$this->rola , 'login'=>$this->login , 'ID'=>$this->ID]);
+            return view('ProfilAdmin',compact('uzytkownicy','pracownicy','admini','klienci','order','uslugi'),['rola'=>$this->rola , 'login'=>$this->login , 'ID'=>$this->ID]);
         } 
         if ($this->rola == "Mechanik") {
             $zamowienia=DB::table('zamowienie')->where('ID_Mechanika',$this->ID)->get();
-            return view('ProfilMechanik', compact('uzytkownicy','zamowienia'), ['rola' => $this->rola , 'login'=>$this->login , 'ID'=>$this->ID]);
+            return view('ProfilMechanik', compact('uzytkownicy','zamowienia','uslugi'), ['rola' => $this->rola , 'login'=>$this->login , 'ID'=>$this->ID]);
         }
         if ($this->rola == "Klient") {
             $zamowienia=DB::table('zamowienie')->where('ID_Klienta',$this->ID)->get(); 
-            return view('ProfilKlienta', compact('uzytkownicy','zamowienia'), ['rola' => $this->rola , 'login'=>$this->login , 'ID'=>$this->ID]);
+            return view('ProfilKlienta', compact('uzytkownicy','zamowienia','uslugi'), ['rola' => $this->rola , 'login'=>$this->login , 'ID'=>$this->ID]);
         }
     }
     public function UsunKonto(){
@@ -79,5 +81,26 @@ class EdycjaController extends SerwisController
         $update=DB::update('update zamowienie set Opis=? , Stan_Realizacji=? where NR_ZAMOWIENIA=? ' , [$opis,$stan,$zamow]);
 
         return view('ProfilMechanik',compact('uzytkownicy','zamowienia'),['rola'=>$this->rola , 'login'=>$this->login , 'ID'=>$this->ID]);
+    }
+    public function UsunUzytkownikow(){
+        $this->sesja();
+        $this->DaneUzytkownika();
+        $this->OpisZamowien();
+        $this->PanelAdmina();
+        $pracownicy=$this->pracownicy;
+        $admini=$this->admini;
+        $klienci=$this->klienci;
+        $order=$this->order;
+        $uslugi=$this->uslugi;
+        $uzytkownicy = $this->uzytkownicy;
+
+        $ID_Uzytkownika=$_GET['ID'];
+        if($ID_Uzytkownika==$this->ID || $ID_Uzytkownika=='5'){
+            $message = "Nie mozesz sam siebie usunąć! ani Szefa firmy Patryka!";
+        }else{
+            $message = "Pomyslnie usunieto uzytkownika!";
+            $delete = DB::table('uzytkownicy')->where('ID_Uzytkownika',$ID_Uzytkownika)->delete();
+        }
+        return view('ProfilAdmin',compact('uzytkownicy','pracownicy','admini','klienci','order','uslugi'),['rola'=>$this->rola , 'login'=>$this->login , 'ID'=>$this->ID , 'message'=>$message]);
     }
 }

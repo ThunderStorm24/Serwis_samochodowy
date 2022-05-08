@@ -82,6 +82,8 @@
                 <div>Opis: {{$zamowieniaData->Opis}}</div>
                 <div>ID_Mechanika: {{$zamowieniaData->ID_Mechanika}}</div>
                 <div>ID_Klienta {{$zamowieniaData->ID_Klienta}}</div>
+                <div>Uslugi: @foreach($uslugi as $uslugiData) @if($uslugiData->NR_ZAMOWIENIA==$zamowieniaData->NR_ZAMOWIENIA) ({{$uslugiData->Nazwa_Uslugi}}) @endif @endforeach</div>
+                <div>Cena: @foreach($uslugi as $uslugiData) @if($uslugiData->NR_ZAMOWIENIA==$zamowieniaData->NR_ZAMOWIENIA) {{$uslugiData->Koszt}} zł @endif @endforeach</div>
                 <form action="Dodaj_Status" method="GET">
                 <div>Zamowienie<input type="text" value="{{$zamowieniaData->NR_ZAMOWIENIA}}" name="zamow"></input></div>
                 <div>DODAJ OPIS (Do zamówienia {{$zamowieniaData->NR_ZAMOWIENIA}}):<input type="text" name="opis"></input></div>

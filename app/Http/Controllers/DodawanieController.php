@@ -25,11 +25,13 @@ class DodawanieController extends SerwisController
         $pHaslo=$_GET['phaslo'];
 
         if($Haslo != $pHaslo){
-            return view('Register');
+            $messageHaslo = "Hasla sie nie zgadzaja!";
+            return view('Register', ['Imie'=>$Imie,'Nazwisko'=>$Nazwisko,'Ulica'=>$Ulica,'Nr'=>$Nr,'Miasto'=>$Miasto,'Kod'=>$Kod,'Telefon'=>$Telefon,'Mail'=>$Mail,'Login'=>$Login,'Haslo'=>$Haslo,'pHaslo'=>$pHaslo,'messageHaslo'=>$messageHaslo]);
         }
         
         $register=DB::insert('INSERT INTO uzytkownicy(Rola,Imie,Nazwisko,Ulica,Nr_domu,Miasto,Kod_pocztowy,Nr_telefonu,Mail,Login,Haslo) values(?,?,?,?,?,?,?,?,?,?,?)',[$Rola,$Imie,$Nazwisko,$Ulica,$Nr,$Miasto,$Kod,$Telefon,$Mail,$Login,$Haslo]);
         return view('Login');
+
     }
     public function RejestracjaAdmin()
     {
