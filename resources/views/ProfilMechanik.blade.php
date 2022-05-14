@@ -85,23 +85,23 @@
                 <div>Uslugi: @foreach($uslugi as $uslugiData) @if($uslugiData->NR_ZAMOWIENIA==$zamowieniaData->NR_ZAMOWIENIA) ({{$uslugiData->Nazwa_Uslugi}}) @endif @endforeach</div>
                 <div>Cena: @foreach($uslugi as $uslugiData) @if($uslugiData->NR_ZAMOWIENIA==$zamowieniaData->NR_ZAMOWIENIA) {{$uslugiData->Koszt}} zł @endif @endforeach</div>
                 <form action="Dodaj_Status" method="GET">
-                <div>Zamowienie<input type="text" value="{{$zamowieniaData->NR_ZAMOWIENIA}}" name="zamow"></input></div>
-                <div>DODAJ OPIS (Do zamówienia {{$zamowieniaData->NR_ZAMOWIENIA}}):<input type="text" name="opis"></input></div>
-                <div>Wybierz stan realizacji (Do zamówienia {{$zamowieniaData->NR_ZAMOWIENIA}})
-                    <select name="stan">
-                        <option value="Oczekuje">Oczekuje</option>
-                        <option value="Zaakceptowane">Zaakceptowane</option>
-                        <option value="W trakcie">W trakcie</option>
-                        <option value="Gotowe">Gotowe</option>
-                    </select>
-                <div><button class="przycisk">Potwierdz</button></div>
+                    <div>Zamowienie<input type="text" value="{{$zamowieniaData->NR_ZAMOWIENIA}}" name="zamow"></input></div>
+                    <div>DODAJ OPIS (Do zamówienia {{$zamowieniaData->NR_ZAMOWIENIA}}):<input type="text" name="opis"></input></div>
+                    <div>Wybierz stan realizacji (Do zamówienia {{$zamowieniaData->NR_ZAMOWIENIA}})
+                        <select name="stan">
+                            <option value="Oczekuje">Oczekuje</option>
+                            <option value="Zaakceptowane">Zaakceptowane</option>
+                            <option value="W trakcie">W trakcie</option>
+                            <option value="Gotowe">Gotowe</option>
+                        </select>
+                        <div><button class="przycisk">Potwierdz</button></div>
                 </form>
-                </div>
             </div>
-
         </div>
 
-        @endforeach
+    </div>
+
+    @endforeach
 
     </div>
 

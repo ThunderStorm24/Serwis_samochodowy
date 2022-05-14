@@ -58,8 +58,7 @@
             </div>
             <div class="opis">
                 Prosimy dzwonić w godzinach otwarcia lub kontaktować się z nami mailowo, odpiszemy jak najszybciej!
-                Polecamy również followanie naszego fan page-a na facebooku <a class="color-blue"
-                    href="https://www.facebook.com/groups/973864133110872" target="_blank">Nie śpie bo mechanikuje!</a>
+                Polecamy również followanie naszego fan page-a na facebooku <a class="color-blue" href="https://www.facebook.com/groups/973864133110872" target="_blank">Nie śpie bo mechanikuje!</a>
             </div>
         </div>
         <div class="zdjecie">
@@ -96,19 +95,19 @@
 
     <div class="display-flex">
         <div class="naglowektrzy">
-        <div class="nas blok text-center">O NAS</div>
-        <div class="opis fs-25">
-            <div class="m-5">Nasza firma warsztatix poswstała w 1998 roku na bazie jednej z pierwszych stacji kontroli pojazdów w
-                Polsce (już w 1975 roku).</div>
-            <div class="m-5">Nasza firma stale podnosi kwalifikacje swoich pracowników w zakresie napraw i obsługi nowoczesnych
-                urządzeń.</div>
-            <div class="m-5">Warsztat "Warsztatix" jest wyposażony w urządzenia renomowanych takich jak:
-                "FACOM","AUTOBOSS","TENGTOOLS" i wiele innych.</div>
-            <div class="m-5">Z nami możesz być spokojny o twój samochód, wieloletnie doświadczenie naszych pracowników i nasz
-                warsztat nadal utrzymujący się w topce najlepszych
-                warsztatów w polsce, zagwarantuje szybką, bezpieczną i tanią naprawe twojego pojazdu.</div>
+            <div class="nas blok text-center">O NAS</div>
+            <div class="opis fs-25">
+                <div class="m-5">Nasza firma warsztatix poswstała w 1998 roku na bazie jednej z pierwszych stacji kontroli pojazdów w
+                    Polsce (już w 1975 roku).</div>
+                <div class="m-5">Nasza firma stale podnosi kwalifikacje swoich pracowników w zakresie napraw i obsługi nowoczesnych
+                    urządzeń.</div>
+                <div class="m-5">Warsztat "Warsztatix" jest wyposażony w urządzenia renomowanych takich jak:
+                    "FACOM","AUTOBOSS","TENGTOOLS" i wiele innych.</div>
+                <div class="m-5">Z nami możesz być spokojny o twój samochód, wieloletnie doświadczenie naszych pracowników i nasz
+                    warsztat nadal utrzymujący się w topce najlepszych
+                    warsztatów w polsce, zagwarantuje szybką, bezpieczną i tanią naprawe twojego pojazdu.</div>
+            </div>
         </div>
-    </div>
     </div>
 
 
@@ -119,8 +118,7 @@
             &copy; Waku Waku 2022. Wszelkie prawa zastrzeżone.
         </div>
         <div class="prawa">
-            <a class="color-blue" href="#prywatnosc">Polityka prywatności</a> <a class="color-blue"
-                href="#cookie">Wykorzystanie plików cookie</a>
+            <a class="color-blue" href="#prywatnosc">Polityka prywatności</a> <a class="color-blue" href="#cookie">Wykorzystanie plików cookie</a>
         </div>
     </div>
 
