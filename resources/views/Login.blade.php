@@ -44,7 +44,11 @@
                 <div><input class="logowanie" type="text" name='login'></input></div>
                 <div>Hasło</div>
                 <div><input class="logowanie" type="password" name='haslo'></input></div>
-                <div><input class="przycisk" type="submit" value="Zaloguj"></input></div>
+                @if($errors->any())<div class="fs-15"><b>@foreach($errors->all() as $err) <li>{{$err}}</li> @endforeach</b></div>@endif
+                @isset($message)<div class="fs-15"><b>
+                        <li>{{$message}}</li>
+                    </b></div>@endif
+                <div class="mtop-20"><input class="przycisk" type="submit" value="Zaloguj"></input></div>
             </form>
             <div class="mtop-20 display-flex content-space-between odnosnik">
                 <a href="Register">Nie masz konta? Zarejestruj się!</a>
@@ -58,8 +62,7 @@
             &copy; Waku Waku 2022. Wszelkie prawa zastrzeżone.
         </div>
         <div class="prawa">
-            <a class="color-blue" href="#prywatnosc">Polityka prywatności</a> <a class="color-blue"
-                href="#cookie">Wykorzystanie plików cookie</a>
+            <a class="color-blue" href="#prywatnosc">Polityka prywatności</a> <a class="color-blue" href="#cookie">Wykorzystanie plików cookie</a>
         </div>
     </div>
 

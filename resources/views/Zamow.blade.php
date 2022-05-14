@@ -216,8 +216,7 @@
             &copy; Waku Waku 2022. Wszelkie prawa zastrzeżone.
         </div>
         <div class="prawa">
-            <a class="color-blue" href="#prywatnosc">Polityka prywatności</a> <a class="color-blue"
-                href="#cookie">Wykorzystanie plików cookie</a>
+            <a class="color-blue" href="#prywatnosc">Polityka prywatności</a> <a class="color-blue" href="#cookie">Wykorzystanie plików cookie</a>
         </div>
     </div>
 

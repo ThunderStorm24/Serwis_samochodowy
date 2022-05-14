@@ -48,18 +48,18 @@
                 </select>
                 <div class="">Imie</div>
                 <div class="fs-15">-Rozpoczynać się ma dużą literą</div>
-                <div><input class="formularz w-100" type="text" maxlength="20" name="imie" pattern="[A-Z]{1}[a-z]{2,20}"></input></div>
+                <div><input class="formularz w-100" type="text" maxlength="20" name="imie"></input></div>
                 <div class="">Nazwisko</div>
                 <div class="fs-15">-Rozpoczynać się ma dużą literą</div>
-                <div><input class="formularz w-100" type="text" maxlength="30" name="nazwisko" pattern="[A-Z]{1}[a-z]{2,30}"></input></div>
+                <div><input class="formularz w-100" type="text" maxlength="30" name="nazwisko"></input></div>
                 <div class="content-space-between display-flex">
                     <div>Ulica<div class="fs-15">-Rozpoczynać się ma dużą literą</div>
                     </div>
                     <div>Nr Domu/Mieszkania<div class="fs-15 text-right">-w postaci 12<b>/</b>34</div>
                     </div>
                 </div>
-                <div class="content-space-between display-flex"><input class="formularz w-70" type="text" maxlength="30" name="ulica" pattern="[A-Z]{1}[A-Za-z\s]{2,30}"></input>
-                    <input class="formularz w-20" type="text" maxlength="5" value="__/__" pattern="^[0-9]+\/[0-9]+" name="nrdom"></input>
+                <div class="content-space-between display-flex"><input class="formularz w-70" type="text" maxlength="30" name="ulica"></input>
+                    <input class="formularz w-20" type="text" maxlength="5" value="__/__" name="nrdom"></input>
                 </div>
                 <div class="content-space-between display-flex">
                     <div>Miasto <div class="fs-15">-Rozpoczynać się ma dużą literą</div>
@@ -68,26 +68,27 @@
                     <div>Kod pocztowy<div class="fs-15 text-right">-w postaci 12<b>-</b>345</div>
                     </div>
                 </div>
-                <div class="content-space-between display-flex"><input class="formularz w-70" type="text" maxlength="30" name="miasto" pattern="[A-Z]{1}[A-Za-z\s]{2,30}"></input>
-                    <input class="formularz w-20" type="text" maxlength="6" value="__-___" pattern="^[0-9]{2}\-[0-9]{3}" name="kod"></input>
+                <div class="content-space-between display-flex"><input class="formularz w-70" type="text" maxlength="30" name="miasto"></input>
+                    <input class="formularz w-20" type="text" maxlength="6" value="__-___" name="kod"></input>
                 </div>
                 <div>Numer Telefonu</div>
                 <div class="fs-15">w postaci <b>+48</b>123456789</div>
-                <div><input class="formularz w-100" type="tel" maxlength="12" value="+48" pattern="^[0-9\-\+]{12,12}$" required name="telefon"></input></div>
+                <div><input class="formularz w-100" type="tel" maxlength="12" value="+48" name="telefon"></input></div>
                 <div>Mail</div>
                 <div class="fs-15">w postaci tom<b>@</b>onet.pl</div>
-                <div><input class="formularz w-100" type="email" maxlength="40" pattern="^[a-z0-9]+\@[a-z]+\.[a-z]+" name="mail"></input></div>
+                <div><input class="formularz w-100" type="email" maxlength="40" name="mail"></input></div>
                 <div>Login</div>
                 <div class="fs-15">-Musi posiadać od 3-40 znaków</div>
-                <div><input class="formularz w-100" type="text" maxlength="40" name="login" pattern=".\S{2,40}"></input></div>
+                <div><input class="formularz w-100" type="text" maxlength="40" name="login"></input></div>
                 <div>Hasło</div>
                 <div class="fs-15">-Musi posiadać od 8-40 znaków</div>
                 <div class="fs-15">-Musi się zaczynać od dużej litery</div>
-                <div><input class="formularz w-100" type="text" maxlength="40" name="haslo" pattern="^[A-Z]{1}.\S{6,40}"></input></div>
+                <div><input class="formularz w-100" type="text" maxlength="40" name="haslo"></input></div>
                 <div>Potwierdź Hasło</div>
                 <div class="fs-15">-Hasła muszą się zgadzać!</div>
-                <div><input class="formularz w-100" type="text" maxlength="40" name="phaslo" pattern="^[A-Z]{1}.\S{6,40}"></input></div>
-                <div><input class="przycisk" type="submit" value="Zarejestruj"></input></div>
+                <div><input class="formularz w-100" type="text" maxlength="40" name="phaslo"></input></div>
+                @if($errors->any())<div class="fs-15"><b>@foreach($errors->all() as $err) <li>{{$err}}</li> @endforeach</b></div>@endif
+                <div class="mtop-20"><input class="przycisk" type="submit" value="Zarejestruj"></input></div>
             </form>
             <div class="mtop-20 display-flex content-space-between odnosnik">
                 <a href="Login">Masz Konto? Zaloguj się!</a>

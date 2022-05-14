@@ -47,7 +47,7 @@
             <form method="GET" action="NoweDane">
         </div>
         <div class="fs-25">
-            <div>Nazwa Użytkownika: <input type="text" name="NowyLogin" value="{{$uzytkownicyData->Login}}" maxlength="40" pattern=".\S{2,40}"></input></div>
+            <div>Nazwa Użytkownika: <input type="text" name="login" value="{{$uzytkownicyData->Login}}" maxlength="40" pattern=".\S{2,40}"></input></div>
             <div>Twoja rola to: {{$uzytkownicyData->Rola}}</div>
         </div>
 
@@ -55,15 +55,16 @@
             <h1>Dane osobowe:</h1>
         </div>
         <div class="fs-25">
-            <div>Imie: <input type="text" name="NoweImie" value="{{$uzytkownicyData->Imie}}" maxlength="20" pattern="[A-Z]{1}[a-z]{2,20}"></input></div>
-            <div>Nazwisko: <input type="text" name="NoweNazwisko" value="{{$uzytkownicyData->Nazwisko}}" maxlength="30" pattern="[A-Z]{1}[a-z]{2,30}"></input></div>
-            <div>Ulica: <input type="text" name="NowaUlica" value="{{$uzytkownicyData->Ulica}}" maxlength="30" pattern="[A-Z]{1}[A-Za-z\s]{2,30}"></input></div>
-            <div>Nr_Domu/Mieszkania: <input type="text" name="NowyNumer" value="{{$uzytkownicyData->Nr_domu}}" maxlength="5" pattern="^[0-9]+\/[0-9]+"></input></div>
-            <div>Miasto: <input type="text" name="NoweMiasto" value="{{$uzytkownicyData->Miasto}}" maxlength="30" pattern="[A-Z]{1}[A-Za-z\s]{2,30}"></input></div>
-            <div>Kod pocztowy: <input type="text" name="NowyKod" value="{{$uzytkownicyData->Kod_pocztowy}}" maxlength="6" pattern="^[0-9]{2}\-[0-9]{3}"></input></div>
-            <div>Numer telefonu: <input type="text" name="NowyTelefon" value="{{$uzytkownicyData->Nr_telefonu}}" maxlength="12" pattern="^[0-9\-\+]{12,12}$"></input></div>
-            <div>mail: <input type="text" name="NowyMail" value="{{$uzytkownicyData->Mail}}" maxlength="40" pattern="^[a-z0-9]+\@[a-z]+\.[a-z]+"></input></div>
+            <div>Imie: <input type="text" name="imie" value="{{$uzytkownicyData->Imie}}" maxlength="20"></input></div>
+            <div>Nazwisko: <input type="text" name="nazwisko" value="{{$uzytkownicyData->Nazwisko}}" maxlength="30"></input></div>
+            <div>Ulica: <input type="text" name="ulica" value="{{$uzytkownicyData->Ulica}}" maxlength="30"></input></div>
+            <div>Nr_Domu/Mieszkania: <input type="text" name="nrdom" value="{{$uzytkownicyData->Nr_domu}}" maxlength="5"></input></div>
+            <div>Miasto: <input type="text" name="miasto" value="{{$uzytkownicyData->Miasto}}" maxlength="30"></input></div>
+            <div>Kod pocztowy: <input type="text" name="kod" value="{{$uzytkownicyData->Kod_pocztowy}}" maxlength="6"></input></div>
+            <div>Numer telefonu: <input type="text" name="telefon" value="{{$uzytkownicyData->Nr_telefonu}}" maxlength="12"></input></div>
+            <div>mail: <input type="text" name="mail" value="{{$uzytkownicyData->Mail}}" maxlength="40"></input></div>
         </div>
+        @if($errors->any())<div class="fs-15"><b>@foreach($errors->all() as $err) <li>{{$err}}</li> @endforeach</b></div>@endif
         @endforeach
 
         <div class="mtop-20"><input class="przycisk" type="submit" value="Zmień Dane"></input></div>
