@@ -48,6 +48,7 @@
         <div class="fs-25">
             <div>Nazwa Użytkownika: {{$uzytkownicyData->Login}}</div>
             <div>Twoja rola to: {{$uzytkownicyData->Rola}}</div>
+            <div>Twoje ID to: {{$uzytkownicyData->ID_Uzytkownika}}</div>
         </div>
 
         <div>
@@ -84,8 +85,9 @@
                 <div>ID_Klienta {{$zamowieniaData->ID_Klienta}}</div>
                 <div>Uslugi: @foreach($uslugi as $uslugiData) @if($uslugiData->NR_ZAMOWIENIA==$zamowieniaData->NR_ZAMOWIENIA) ({{$uslugiData->Nazwa_Uslugi}}) @endif @endforeach</div>
                 <div>Cena: @foreach($uslugi as $uslugiData) @if($uslugiData->NR_ZAMOWIENIA==$zamowieniaData->NR_ZAMOWIENIA) {{$uslugiData->Koszt}} zł @endif @endforeach</div>
+
                 <form action="Dodaj_Status" method="GET">
-                    <div>Zamowienie<input type="text" value="{{$zamowieniaData->NR_ZAMOWIENIA}}" name="zamow"></input></div>
+                    <div>Zamowienie:<input class="w-20" type="number" value="{{$zamowieniaData->NR_ZAMOWIENIA}}" name="zamow"></input></div>
                     <div>DODAJ OPIS (Do zamówienia {{$zamowieniaData->NR_ZAMOWIENIA}}):<input type="text" name="opis"></input></div>
                     <div>Wybierz stan realizacji (Do zamówienia {{$zamowieniaData->NR_ZAMOWIENIA}})
                         <select name="stan">
@@ -96,13 +98,76 @@
                         </select>
                         <div><button class="przycisk">Potwierdz</button></div>
                 </form>
+
+                @endforeach
+
+
+                <div>
+                    <h1>Zamowienia do Wziecia:</h1>
+                </div>
+
+                <div class="display-flex">
+                    <div>
+                        @foreach($zamowieniaDoWziecia as $zamowieniaDataW)
+                        <div class="mtop-20">Numer_Zamówienia: {{$zamowieniaDataW->NR_ZAMOWIENIA}}</div>
+                        <div>Stan_Realizacji: {{$zamowieniaDataW->Stan_Realizacji}}</div>
+                        <div>Data Zamówienia: {{$zamowieniaDataW->Data_zamowienia}}</div>
+                        <div>Data Realizacji: {{$zamowieniaDataW->Data_realizacji}}</div>
+                        <div>Opis: {{$zamowieniaDataW->Opis}}</div>
+                        <div>ID_Mechanika: {{$zamowieniaDataW->ID_Mechanika}}</div>
+                        <div>ID_Klienta {{$zamowieniaDataW->ID_Klienta}}</div>
+                        <div>Uslugi: @foreach($uslugi as $uslugiData) @if($uslugiData->NR_ZAMOWIENIA==$zamowieniaDataW->NR_ZAMOWIENIA) ({{$uslugiData->Nazwa_Uslugi}}) @endif @endforeach</div>
+                        <div>Cena: @foreach($uslugi as $uslugiData) @if($uslugiData->NR_ZAMOWIENIA==$zamowieniaDataW->NR_ZAMOWIENIA) {{$uslugiData->Koszt}} zł @endif @endforeach</div>
+
+                        <form action="Akceptuj_Zlecenie" method="GET">
+                            <div>Zamowienie:<input class="w-30" type="number" value="{{$zamowieniaDataW->NR_ZAMOWIENIA}}" name="zamow"></input></div>
+                            <div><button class="przycisk">Akceptuj Zlecenie</button></div>
+                        </form>
+
+                        @endforeach
+                    </div>
+
+                </div>
+                <div>
+                    <h1>Ukończone zamówienia:</h1>
+                </div>
+
+                <div class="display-flex">
+                    <div>
+                        @foreach($zamowieniaGotowe as $zamowieniaDataG)
+                        <div class="mtop-20">Numer_Zamówienia: {{$zamowieniaDataG->NR_ZAMOWIENIA}}</div>
+                        <div>Stan_Realizacji: {{$zamowieniaDataG->Stan_Realizacji}}</div>
+                        <div>Data Zamówienia: {{$zamowieniaDataG->Data_zamowienia}}</div>
+                        <div>Data Realizacji: {{$zamowieniaDataG->Data_realizacji}}</div>
+                        <div>Opis: {{$zamowieniaDataG->Opis}}</div>
+                        <div>ID_Mechanika: {{$zamowieniaDataG->ID_Mechanika}}</div>
+                        <div>ID_Klienta {{$zamowieniaDataG->ID_Klienta}}</div>
+                        <div>Uslugi: @foreach($uslugi as $uslugiData) @if($uslugiData->NR_ZAMOWIENIA==$zamowieniaDataG->NR_ZAMOWIENIA) ({{$uslugiData->Nazwa_Uslugi}}) @endif @endforeach</div>
+                        <div>Cena: @foreach($uslugi as $uslugiData) @if($uslugiData->NR_ZAMOWIENIA==$zamowieniaDataG->NR_ZAMOWIENIA) {{$uslugiData->Koszt}} zł @endif @endforeach</div>
+
+                        <form action="Dodaj_Status" method="GET">
+                            <div>Zamowienie:<input class="w-20" type="number" value="{{$zamowieniaDataG->NR_ZAMOWIENIA}}" name="zamow"></input></div>
+                            <div>DODAJ OPIS (Do zamówienia {{$zamowieniaDataG->NR_ZAMOWIENIA}}):<input type="text" name="opis"></input></div>
+                            <div>Wybierz stan realizacji (Do zamówienia {{$zamowieniaDataG->NR_ZAMOWIENIA}})
+                                <select name="stan">
+                                    <option value="Oczekuje">Oczekuje</option>
+                                    <option value="Zaakceptowane">Zaakceptowane</option>
+                                    <option value="W trakcie">W trakcie</option>
+                                    <option value="Gotowe">Gotowe</option>
+                                </select>
+                                <div><button class="przycisk">Potwierdz</button></div>
+                        </form>
+
+                        @endforeach
+                    </div>
+                </div>
             </div>
         </div>
-
     </div>
 
-    @endforeach
 
+
+    </div>
     </div>
 
 

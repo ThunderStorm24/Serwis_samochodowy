@@ -64,7 +64,7 @@
             <div>Numer telefonu: <input type="text" name="telefon" value="{{$uzytkownicyData->Nr_telefonu}}" maxlength="12"></input></div>
             <div>mail: <input type="text" name="mail" value="{{$uzytkownicyData->Mail}}" maxlength="40"></input></div>
         </div>
-        @if($errors->any())<div class="fs-15"><b>@foreach($errors->all() as $err) <li>{{$err}}</li> @endforeach</b></div>@endif
+        @if($errors->any())<div class="fs-15 mtop-20"><b>@foreach($errors->all() as $err) <li>{{$err}}</li> @endforeach</b></div>@endif
         @endforeach
 
         <div class="mtop-20"><input class="przycisk" type="submit" value="Zmień Dane"></input></div>

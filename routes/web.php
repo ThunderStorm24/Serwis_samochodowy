@@ -91,3 +91,4 @@ Route::get('/ZarejestrujAdmin',[DodawanieController::class,'RejestracjaAdmin']);
 
 Route::get('/UsunUzytkownikow',[EdycjaController::class,'UsunUzytkownikow']);
 Route::get('/PokazUzytkownikow',[EdycjaController::class,'ZnajdzUzytkownikow']);
+Route::get('/Akceptuj_Zlecenie',[EdycjaController::class,'AkceptujZlecenie']);

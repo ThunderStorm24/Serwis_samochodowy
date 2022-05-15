@@ -74,15 +74,28 @@ class SerwisController extends Controller
         //Dane Osobowe Mechanika
         $this->DaneUzytkownika();
         $uzytkownicy=$this->uzytkownicy;
+
         //Zamowienia Mechanika
         $zamowienia=DB::table('zamowienie')
         ->where('ID_Mechanika',$this->ID)
+        ->where('Stan_Realizacji','W trakcie')
+        ->orWhere('Stan_Realizacji','Zaakceptowane')
+        ->where('ID_Mechanika',$this->ID)
+        ->get();
+        //Puste zamowienia do wziecia, bez mechanika jeszcze
+        $zamowieniaDoWziecia=DB::table('zamowienie')
+        ->where('ID_Mechanika','10')
+        ->get();
+        //Ukonczone Zamowienia
+        $zamowieniaGotowe=DB::table('zamowienie')
+        ->where('ID_Mechanika',$this->ID)
+        ->where('Stan_Realizacji','Gotowe')
         ->get();
 
         $this->OpisZamowien();
         $uslugi=$this->uslugi;
 
-        return view('ProfilMechanik',compact('uzytkownicy','zamowienia','uslugi'),['rola'=>$this->rola , 'login'=>$this->login , 'ID'=>$this->ID]);
+        return view('ProfilMechanik',compact('uzytkownicy','zamowienia','uslugi','zamowieniaDoWziecia','zamowieniaGotowe'),['rola'=>$this->rola , 'login'=>$this->login , 'ID'=>$this->ID]);
     }
     public function WyswietlanieKlienta(){
         //Dane Osobowe Klienta

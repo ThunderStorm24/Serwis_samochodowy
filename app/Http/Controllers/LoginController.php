@@ -16,11 +16,12 @@ class LoginController extends Controller
         //Walidacja (Sprawdzenie czy pola nie są puste)
         $req->validate(
             [
-                'login' => 'required',
+                'login' => 'required|exists:uzytkownicy',
                 'haslo' => 'required',
             ],
             [
                 'required' => 'Pole :attribute jest puste!',
+                'exists'=>'Nie ma takiego loginu w naszej baize!'
             ]
         );
 
