@@ -4,10 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Http\Controllers\LoginController;
 use App\Http\Controllers\SerwisController;
-use Illuminate\Support\Facades\Validator;
-use App\Http\Controllers\EdycjaController;
+
+
 
 
 
@@ -38,9 +37,10 @@ class DodawanieController extends SerwisController
                 'kod.regex' => 'Kod pocztowy ma być w postaci __-___ (np:41-253)',
                 'telefon.regex' => 'Telefon ma się zaczynać od numeru kierunkowego (wraz z plusem) i się składać tylko i wyłącznie z liczb (np:+48123456789)',
                 'mail.regex' => 'Mail ma zawierać @ (np:pat@onet.pl)',
-                'login.regex' => 'Login ',
-                'haslo.regex' => 'Imie ma się zaczynać z Dużej litery, ma być bez znaków specjalnych i bez liczb',
-                'phaslo.regex' => 'Imie ma się zaczynać z Dużej litery, ma być bez znaków specjalnych i bez liczb',
+                'login.regex' => 'Login ze wszystkich znaków',
+                'haslo.regex' => 'Haslo ma się zaczynać z Dużej litery',
+                'phaslo.regex' => 'Powtórzone hasło ma się zaczynać z Dużej litery',
+                'phaslo.same'=>'Hasła nie są takie same!',
                 'required' => 'Pole :attribute nie może być puste!',
                 'unique' => 'Pole :attribute znajduje się już w naszej bazie!'
             ]
@@ -63,7 +63,6 @@ class DodawanieController extends SerwisController
         $Mail = $_GET['mail'];
         $Login = $_GET['login'];
         $Haslo = $_GET['haslo'];
-        $pHaslo = $_GET['phaslo'];
 
         //Dodanie do tabeli uzytkonicy nowego uzytkownika z danymi z formularza
         $register = DB::insert('INSERT INTO uzytkownicy(Rola,Imie,Nazwisko,Ulica,Nr_domu,Miasto,Kod_pocztowy,Nr_telefonu,Mail,Login,Haslo) values(?,?,?,?,?,?,?,?,?,?,?)', [$Rola, $Imie, $Nazwisko, $Ulica, $Nr, $Miasto, $Kod, $Telefon, $Mail, $Login, $Haslo]);

@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Http\Controllers\LoginController;
-use App\Http\Controllers\SerwisController;
 use App\Http\Controllers\DodawanieController;
 
 class EdycjaController extends DodawanieController
@@ -21,9 +19,9 @@ class EdycjaController extends DodawanieController
                 'nrdom' => 'required|regex:"^[0-9]+\/[0-9]+"|min:3|max:5',
                 'miasto' => 'required|regex:"[A-Z]{1}[A-Za-z\s]"|min:3|max:30',
                 'kod' => 'required|regex:"^[0-9]{2}\-[0-9]{3}"',
-                'telefon' => 'required|regex:"^[0-9\-\+]{12,12}$"|unique:uzytkownicy,Nr_telefonu,'.$this->ID.',ID_Uzytkownika',
-                'mail' => 'required|regex:"^[a-z0-9]+\@[a-z]+\.[a-z]+"|min:7|max:40|unique:uzytkownicy,Mail,'.$this->ID.',ID_Uzytkownika',
-                'login' => 'required|regex:".\S"|min:3|max:40"|unique:uzytkownicy,login,'.$this->ID.',ID_Uzytkownika',
+                'telefon' => 'required|regex:"^[0-9\-\+]{12,12}$"|unique:uzytkownicy,Nr_telefonu,' . $this->ID . ',ID_Uzytkownika',
+                'mail' => 'required|regex:"^[a-z0-9]+\@[a-z]+\.[a-z]+"|min:7|max:40|unique:uzytkownicy,Mail,' . $this->ID . ',ID_Uzytkownika',
+                'login' => 'required|regex:".\S"|min:3|max:40"|unique:uzytkownicy,login,' . $this->ID . ',ID_Uzytkownika',
             ],
             [
                 'imie.regex' => 'Imie ma się zaczynać z Dużej litery, ma być bez znaków specjalnych i bez liczb (np:Tomek)',
@@ -68,7 +66,7 @@ class EdycjaController extends DodawanieController
         $uzytkownicy = $this->uzytkownicy;
 
         //Walidacja     
-        $this->validacjaEdycji($req);  
+        $this->validacjaEdycji($req);
 
         //Pobranie zmiennych
         $Imie = $_GET['imie'];
@@ -96,16 +94,25 @@ class EdycjaController extends DodawanieController
             //I wyswietl profil admina z waznymi zmiennymi
             return view('ProfilAdmin', compact('uzytkownicy', 'pracownicy', 'admini', 'klienci', 'order', 'uslugi'), ['rola' => $this->rola, 'login' => $this->login, 'ID' => $this->ID]);
         }
-        //JESLI rola to Admin
+        //JESLI rola to Mechanik
         if ($this->rola == "Mechanik") {
             //To pobierz zamowienia Mechanika
             $zamowienia = DB::table('zamowienie')
                 ->where('ID_Mechanika', $this->ID)
                 ->get();
+            //Wyswietlanie na profilu zamowien do wziecia
+            $zamowieniaDoWziecia = DB::table('zamowienie')
+                ->where('ID_Mechanika', '10')
+                ->get();
+            //Zamowienia Gotowe
+            $zamowieniaGotowe = DB::table('zamowienie')
+                ->where('ID_Mechanika', $this->ID)
+                ->where('Stan_Realizacji', 'Gotowe')
+                ->get();
             //I wyswietl profil mechanika z waznymi zmiennymi
-            return view('ProfilMechanik', compact('uzytkownicy', 'zamowienia', 'uslugi'), ['rola' => $this->rola, 'login' => $this->login, 'ID' => $this->ID]);
+            return view('ProfilMechanik', compact('uzytkownicy', 'zamowienia', 'uslugi', 'zamowieniaDoWziecia', 'zamowieniaGotowe'), ['rola' => $this->rola, 'login' => $this->login, 'ID' => $this->ID]);
         }
-        //JESLI rola to Admin
+        //JESLI rola to Klient
         if ($this->rola == "Klient") {
             //To pobierz zamowienia Klienta
             $zamowienia = DB::table('zamowienie')
@@ -132,22 +139,22 @@ class EdycjaController extends DodawanieController
         $this->OpisZamowien();
         $uslugi = $this->uslugi;
         $uzytkownicy = $this->uzytkownicy;
-        
+
 
         //Zamowienia gdzie ID_Mechanika jest z sesji, czyli zlecenia obecnie zalogowanego mechanika
         $zamowienia = DB::table('zamowienie')
             ->where('ID_Mechanika', $this->ID)
-            ->where('Stan_Realizacji','W trakcie')
-            ->orWhere('Stan_Realizacji','Zaakceptowane')
+            ->where('Stan_Realizacji', 'W trakcie')
+            ->orWhere('Stan_Realizacji', 'Zaakceptowane')
             ->get();
         //Wyswietlanie na profilu zamowien do wziecia
-        $zamowieniaDoWziecia=DB::table('zamowienie')
-            ->where('ID_Mechanika','10')
+        $zamowieniaDoWziecia = DB::table('zamowienie')
+            ->where('ID_Mechanika', '10')
             ->get();
         //Zamowienia Gotowe
-        $zamowieniaGotowe=DB::table('zamowienie')
-            ->where('ID_Mechanika',$this->ID)
-            ->where('Stan_Realizacji','Gotowe')
+        $zamowieniaGotowe = DB::table('zamowienie')
+            ->where('ID_Mechanika', $this->ID)
+            ->where('Stan_Realizacji', 'Gotowe')
             ->get();
 
         //Pobranie danych z formularza
@@ -156,20 +163,20 @@ class EdycjaController extends DodawanieController
         $zamow = $_GET['zamow'];
 
         //Jesli Stan bedzie OCZEKUJE
-        if($stan=="Oczekuje"){
-        //To przygotowanie zmiennych dla resetu dla zamowienia
-        $opis = "Oczekuje na zatwierdzenie!";
-        $id=10;
-        //I zamowienie zostaje anulowane przez mechanika
-        $update = DB::update('update zamowienie set Opis=? , Stan_Realizacji=? , ID_Mechanika=? where NR_ZAMOWIENIA=? ', [$opis, $stan, $id, $zamow]);
-        }else{
-        //Jesli inny stan to
-        //Update do bazy danych z nowymi zmiennymi
-        $update = DB::update('update zamowienie set Opis=? , Stan_Realizacji=? where NR_ZAMOWIENIA=? ', [$opis, $stan, $zamow]);
+        if ($stan == "Oczekuje") {
+            //To przygotowanie zmiennych dla resetu dla zamowienia
+            $opis = "Oczekuje na zatwierdzenie!";
+            $id = 10;
+            //I zamowienie zostaje anulowane przez mechanika
+            $update = DB::update('update zamowienie set Opis=? , Stan_Realizacji=? , ID_Mechanika=? where NR_ZAMOWIENIA=? ', [$opis, $stan, $id, $zamow]);
+        } else {
+            //Jesli inny stan to
+            //Update do bazy danych z nowymi zmiennymi
+            $update = DB::update('update zamowienie set Opis=? , Stan_Realizacji=? where NR_ZAMOWIENIA=? ', [$opis, $stan, $zamow]);
         }
 
         //Zwracamy Profil mechanika z potrzebnymi zmiennymi
-        return view('ProfilMechanik', compact('uzytkownicy', 'zamowienia', 'uslugi','zamowieniaDoWziecia','zamowieniaGotowe'), ['rola' => $this->rola, 'login' => $this->login, 'ID' => $this->ID]);
+        return view('ProfilMechanik', compact('uzytkownicy', 'zamowienia', 'uslugi', 'zamowieniaDoWziecia', 'zamowieniaGotowe'), ['rola' => $this->rola, 'login' => $this->login, 'ID' => $this->ID]);
     }
     public function UsunUzytkownikow()
     {
@@ -236,7 +243,8 @@ class EdycjaController extends DodawanieController
         //Zwracamy widok profilu admina z powrotem
         return view('ProfilAdmin', compact('uzytkownicy', 'pracownicy', 'admini', 'klienci', 'order', 'uslugi', 'znajdzUzytkownika', 'znajdzOpis', 'znajdzZamowienie'), ['rola' => $this->rola, 'login' => $this->login, 'ID' => $this->ID, 'messageznajdz' => $messageznajdz]);
     }
-    public function AkceptujZlecenie(){
+    public function AkceptujZlecenie()
+    {
         //Pobranie wszystkich zmiennych do wyswietlenia widoku z danymi z sesji, z wyswietlaniem mechanika i opisami zamowien
         $this->sesja();
         $this->WyswietlanieMechanika();
@@ -247,17 +255,17 @@ class EdycjaController extends DodawanieController
         //Zamowienia gdzie ID_Mechanika jest z sesji, czyli zlecenia obecnie zalogowanego mechanika
         $zamowienia = DB::table('zamowienie')
             ->where('ID_Mechanika', $this->ID)
-            ->where('Stan_Realizacji','W trakcie')
-            ->orWhere('Stan_Realizacji','Zaakceptowane')
+            ->where('Stan_Realizacji', 'W trakcie')
+            ->orWhere('Stan_Realizacji', 'Zaakceptowane')
             ->get();
         //Wyswietlanie na profilu zamowien do wziecia
-        $zamowieniaDoWziecia=DB::table('zamowienie')
-            ->where('ID_Mechanika','10')
+        $zamowieniaDoWziecia = DB::table('zamowienie')
+            ->where('ID_Mechanika', '10')
             ->get();
         //Zamowienia Gotowe
-        $zamowieniaGotowe=DB::table('zamowienie')
-            ->where('ID_Mechanika',$this->ID)
-            ->where('Stan_Realizacji','Gotowe')
+        $zamowieniaGotowe = DB::table('zamowienie')
+            ->where('ID_Mechanika', $this->ID)
+            ->where('Stan_Realizacji', 'Gotowe')
             ->get();
 
         //Dane z formularza i automatyczne po nacisnieciu przycisku
@@ -268,6 +276,6 @@ class EdycjaController extends DodawanieController
         $update = DB::update('update zamowienie set Opis=? , Stan_Realizacji=? , ID_Mechanika=? where NR_ZAMOWIENIA=? ', [$opis, $stan, $this->ID, $zamow]);
 
         //Zwracamy Profil mechanika z potrzebnymi zmiennymi
-        return view('ProfilMechanik', compact('uzytkownicy', 'zamowienia', 'uslugi','zamowieniaDoWziecia','zamowieniaGotowe'), ['rola' => $this->rola, 'login' => $this->login, 'ID' => $this->ID]);
+        return view('ProfilMechanik', compact('uzytkownicy', 'zamowienia', 'uslugi', 'zamowieniaDoWziecia', 'zamowieniaGotowe'), ['rola' => $this->rola, 'login' => $this->login, 'ID' => $this->ID]);
     }
 }

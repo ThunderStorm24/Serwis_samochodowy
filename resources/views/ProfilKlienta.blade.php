@@ -48,6 +48,7 @@
         <div class="fs-25">
             <div>Nazwa Użytkownika: {{$uzytkownicyData->Login}}</div>
             <div>Twoja rola to: {{$uzytkownicyData->Rola}}</div>
+            <div>Twoje ID to: {{$uzytkownicyData->ID_Uzytkownika}}</div>
         </div>
 
         <div>
@@ -71,21 +72,45 @@
         </div>
 
 
-        <div>
+        <div class="blok mtop-20 p-20">
             <h1>Moje Zamówienia:</h1>
         </div>
-        @foreach($zamowienia as $zamowieniaData)
-        <div>Numer_Zamówienia: {{$zamowieniaData->NR_ZAMOWIENIA}}</div>
-        <div>Stan_Realizacji: {{$zamowieniaData->Stan_Realizacji}}</div>
-        <div>Data Zamówienia: {{$zamowieniaData->Data_zamowienia}}</div>
-        <div>Data Realizacji: {{$zamowieniaData->Data_realizacji}}</div>
-        <div>Opis: {{$zamowieniaData->Opis}}</div>
-        <div>ID_Mechanika: {{$zamowieniaData->ID_Mechanika}}</div>
-        <div>ID_Klienta {{$zamowieniaData->ID_Klienta}}</div>
-        <div>Uslugi: @foreach($uslugi as $uslugiData) @if($uslugiData->NR_ZAMOWIENIA==$zamowieniaData->NR_ZAMOWIENIA) ({{$uslugiData->Nazwa_Uslugi}}) @endif @endforeach</div>
-        <div>Cena: @foreach($uslugi as $uslugiData) @if($uslugiData->NR_ZAMOWIENIA==$zamowieniaData->NR_ZAMOWIENIA) {{$uslugiData->Koszt}} zł @endif @endforeach</div>
-        @endforeach
+        <div class="display-flex flex-wrap">
+            @foreach($zamowienia as $zamowieniaData)
+            <div class="ramkazamowienia display-flex flexcolumn">
+                <div>Numer_Zamówienia: {{$zamowieniaData->NR_ZAMOWIENIA}}</div>
+                <div>Stan_Realizacji: {{$zamowieniaData->Stan_Realizacji}}</div>
+                <div>Data Zamówienia: {{$zamowieniaData->Data_zamowienia}}</div>
+                <div>Data Realizacji: {{$zamowieniaData->Data_realizacji}}</div>
+                <div>Opis: {{$zamowieniaData->Opis}}</div>
+                <div>ID_Mechanika: @if($zamowieniaData->ID_Mechanika==10) Oczekujemy na Mechanika @else {{$zamowieniaData->ID_Mechanika}} @endif </div>
+                <div>ID_Klienta {{$zamowieniaData->ID_Klienta}}</div>
+                <div>Uslugi: @foreach($uslugi as $uslugiData) @if($uslugiData->NR_ZAMOWIENIA==$zamowieniaData->NR_ZAMOWIENIA) ({{$uslugiData->Nazwa_Uslugi}}) @endif @endforeach</div>
+                <div>Cena: @foreach($uslugi as $uslugiData) @if($uslugiData->NR_ZAMOWIENIA==$zamowieniaData->NR_ZAMOWIENIA) {{$uslugiData->Koszt}} zł @endif @endforeach</div>
+            </div>
+            @endforeach
+        </div>
+
+        <div class="blok mtop-20 p-20">
+            <h1>Moje Ukończone Zamówienia:</h1>
+        </div>
+        <div class="display-flex flex-wrap">
+            @foreach($zamowieniaGotowe as $zamowieniaData)
+            <div class="ramkazamowienia display-flex flexcolumn">
+                <div>Numer_Zamówienia: {{$zamowieniaData->NR_ZAMOWIENIA}}</div>
+                <div>Stan_Realizacji: {{$zamowieniaData->Stan_Realizacji}}</div>
+                <div>Data Zamówienia: {{$zamowieniaData->Data_zamowienia}}</div>
+                <div>Data Realizacji: {{$zamowieniaData->Data_realizacji}}</div>
+                <div>Opis: {{$zamowieniaData->Opis}}</div>
+                <div>ID_Mechanika: {{$zamowieniaData->ID_Mechanika}}</div>
+                <div>ID_Klienta {{$zamowieniaData->ID_Klienta}}</div>
+                <div>Uslugi: @foreach($uslugi as $uslugiData) @if($uslugiData->NR_ZAMOWIENIA==$zamowieniaData->NR_ZAMOWIENIA) ({{$uslugiData->Nazwa_Uslugi}}) @endif @endforeach</div>
+                <div>Cena: @foreach($uslugi as $uslugiData) @if($uslugiData->NR_ZAMOWIENIA==$zamowieniaData->NR_ZAMOWIENIA) {{$uslugiData->Koszt}} zł @endif @endforeach</div>
+            </div>
+            @endforeach
+        </div>
     </div>
+
 
     <div class="stopka display-flex content-space-between">
         <div class="lewa">

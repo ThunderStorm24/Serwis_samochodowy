@@ -71,71 +71,83 @@
         </div>
 
         <div>
-            <h1>Moje Zlecenia:</h1>
-        </div>
-        <div class="display-flex">
             <div>
-                @foreach($zamowienia as $zamowieniaData)
-                <div class="mtop-20">Numer_Zamówienia: {{$zamowieniaData->NR_ZAMOWIENIA}}</div>
-                <div>Stan_Realizacji: {{$zamowieniaData->Stan_Realizacji}}</div>
-                <div>Data Zamówienia: {{$zamowieniaData->Data_zamowienia}}</div>
-                <div>Data Realizacji: {{$zamowieniaData->Data_realizacji}}</div>
-                <div>Opis: {{$zamowieniaData->Opis}}</div>
-                <div>ID_Mechanika: {{$zamowieniaData->ID_Mechanika}}</div>
-                <div>ID_Klienta {{$zamowieniaData->ID_Klienta}}</div>
-                <div>Uslugi: @foreach($uslugi as $uslugiData) @if($uslugiData->NR_ZAMOWIENIA==$zamowieniaData->NR_ZAMOWIENIA) ({{$uslugiData->Nazwa_Uslugi}}) @endif @endforeach</div>
-                <div>Cena: @foreach($uslugi as $uslugiData) @if($uslugiData->NR_ZAMOWIENIA==$zamowieniaData->NR_ZAMOWIENIA) {{$uslugiData->Koszt}} zł @endif @endforeach</div>
+                <div class="blok p-20 mtop-20">
+                    <h1>Moje Zlecenia:</h1>
+                </div>
+                <div class="display-flex flex-wrap">
 
-                <form action="Dodaj_Status" method="GET">
-                    <div>Zamowienie:<input class="w-20" type="number" value="{{$zamowieniaData->NR_ZAMOWIENIA}}" name="zamow"></input></div>
-                    <div>DODAJ OPIS (Do zamówienia {{$zamowieniaData->NR_ZAMOWIENIA}}):<input type="text" name="opis"></input></div>
-                    <div>Wybierz stan realizacji (Do zamówienia {{$zamowieniaData->NR_ZAMOWIENIA}})
-                        <select name="stan">
-                            <option value="Oczekuje">Oczekuje</option>
-                            <option value="Zaakceptowane">Zaakceptowane</option>
-                            <option value="W trakcie">W trakcie</option>
-                            <option value="Gotowe">Gotowe</option>
-                        </select>
-                        <div><button class="przycisk">Potwierdz</button></div>
-                </form>
+                    @foreach($zamowienia as $zamowieniaData)
+                    <div class="ramkazamowienia display-flex flexcolumn">
+                        <div class="mtop-20">
+                            <h2>Numer_Zamówienia: {{$zamowieniaData->NR_ZAMOWIENIA}}</h2>
+                        </div>
+                        <div>Stan_Realizacji: {{$zamowieniaData->Stan_Realizacji}}</div>
+                        <div>Data Zamówienia: {{$zamowieniaData->Data_zamowienia}}</div>
+                        <div>Data Realizacji: {{$zamowieniaData->Data_realizacji}}</div>
+                        <div>Opis: {{$zamowieniaData->Opis}}</div>
+                        <div>ID_Mechanika: {{$zamowieniaData->ID_Mechanika}}</div>
+                        <div>ID_Klienta {{$zamowieniaData->ID_Klienta}}</div>
+                        <div>Uslugi: @foreach($uslugi as $uslugiData) @if($uslugiData->NR_ZAMOWIENIA==$zamowieniaData->NR_ZAMOWIENIA) ({{$uslugiData->Nazwa_Uslugi}}) @endif @endforeach</div>
+                        <div>Cena: @foreach($uslugi as $uslugiData) @if($uslugiData->NR_ZAMOWIENIA==$zamowieniaData->NR_ZAMOWIENIA) {{$uslugiData->Koszt}} zł @endif @endforeach</div>
 
-                @endforeach
+                        <form action="Dodaj_Status" method="GET">
+                            <div>Zamowienie: {{$zamowieniaData->NR_ZAMOWIENIA}}<input type="hidden" value="{{$zamowieniaData->NR_ZAMOWIENIA}}" name="zamow"></input></div>
+                            <div>DODAJ OPIS (Do zamówienia {{$zamowieniaData->NR_ZAMOWIENIA}}):<div><textarea rows="1" cols="40" class="opiszamowienia" name="opis" placeholder="Tutaj dodać opis"></textarea></div>
+                            </div>
+                            <div>Wybierz stan realizacji (Do zamówienia {{$zamowieniaData->NR_ZAMOWIENIA}})
+                                <div><select class="statuszamowienia" name="stan">
+                                        <option value="Zaakceptowane">Zaakceptowane</option>
+                                        <option value="W trakcie">W trakcie</option>
+                                        <option value="Gotowe">Gotowe</option>
+                                        <option value="Oczekuje">Oczekuje</option>
+                                    </select></div>
+                                <div><button class="przycisk mtop-20">Potwierdz</button></div>
+                            </div>
+                        </form>
+                    </div>
+                    @endforeach
+                </div>
 
 
-                <div>
+                <div class="blok p-20 mtop-20">
                     <h1>Zamowienia do Wziecia:</h1>
                 </div>
 
-                <div class="display-flex">
-                    <div>
-                        @foreach($zamowieniaDoWziecia as $zamowieniaDataW)
-                        <div class="mtop-20">Numer_Zamówienia: {{$zamowieniaDataW->NR_ZAMOWIENIA}}</div>
+                <div class="display-flex flex-wrap">
+
+                    @foreach($zamowieniaDoWziecia as $zamowieniaDataW)
+                    <div class="ramkazamowienia display-flex flexcolumn">
+                        <div class="mtop-20">
+                            <h2>Numer_Zamówienia: {{$zamowieniaDataW->NR_ZAMOWIENIA}}</h2>
+                        </div>
                         <div>Stan_Realizacji: {{$zamowieniaDataW->Stan_Realizacji}}</div>
                         <div>Data Zamówienia: {{$zamowieniaDataW->Data_zamowienia}}</div>
                         <div>Data Realizacji: {{$zamowieniaDataW->Data_realizacji}}</div>
                         <div>Opis: {{$zamowieniaDataW->Opis}}</div>
-                        <div>ID_Mechanika: {{$zamowieniaDataW->ID_Mechanika}}</div>
                         <div>ID_Klienta {{$zamowieniaDataW->ID_Klienta}}</div>
                         <div>Uslugi: @foreach($uslugi as $uslugiData) @if($uslugiData->NR_ZAMOWIENIA==$zamowieniaDataW->NR_ZAMOWIENIA) ({{$uslugiData->Nazwa_Uslugi}}) @endif @endforeach</div>
                         <div>Cena: @foreach($uslugi as $uslugiData) @if($uslugiData->NR_ZAMOWIENIA==$zamowieniaDataW->NR_ZAMOWIENIA) {{$uslugiData->Koszt}} zł @endif @endforeach</div>
 
                         <form action="Akceptuj_Zlecenie" method="GET">
-                            <div>Zamowienie:<input class="w-30" type="number" value="{{$zamowieniaDataW->NR_ZAMOWIENIA}}" name="zamow"></input></div>
-                            <div><button class="przycisk">Akceptuj Zlecenie</button></div>
+                            <div>Zamowienie: {{$zamowieniaDataW->NR_ZAMOWIENIA}}<input type="hidden" value="{{$zamowieniaDataW->NR_ZAMOWIENIA}}" name="zamow"></input></div>
+                            <div><button class="przycisk mtop-20">Akceptuj Zlecenie</button></div>
                         </form>
-
-                        @endforeach
                     </div>
+                    @endforeach
 
                 </div>
-                <div>
+                <div class="blok p-20 mtop-20">
                     <h1>Ukończone zamówienia:</h1>
                 </div>
 
-                <div class="display-flex">
-                    <div>
-                        @foreach($zamowieniaGotowe as $zamowieniaDataG)
-                        <div class="mtop-20">Numer_Zamówienia: {{$zamowieniaDataG->NR_ZAMOWIENIA}}</div>
+                <div class="display-flex flex-wrap">
+
+                    @foreach($zamowieniaGotowe as $zamowieniaDataG)
+                    <div class="ramkazamowienia display-flex flexcolumn">
+                        <div class="mtop-20">
+                            <h2>Numer_Zamówienia: {{$zamowieniaDataG->NR_ZAMOWIENIA}}</h2>
+                        </div>
                         <div>Stan_Realizacji: {{$zamowieniaDataG->Stan_Realizacji}}</div>
                         <div>Data Zamówienia: {{$zamowieniaDataG->Data_zamowienia}}</div>
                         <div>Data Realizacji: {{$zamowieniaDataG->Data_realizacji}}</div>
@@ -146,31 +158,25 @@
                         <div>Cena: @foreach($uslugi as $uslugiData) @if($uslugiData->NR_ZAMOWIENIA==$zamowieniaDataG->NR_ZAMOWIENIA) {{$uslugiData->Koszt}} zł @endif @endforeach</div>
 
                         <form action="Dodaj_Status" method="GET">
-                            <div>Zamowienie:<input class="w-20" type="number" value="{{$zamowieniaDataG->NR_ZAMOWIENIA}}" name="zamow"></input></div>
-                            <div>DODAJ OPIS (Do zamówienia {{$zamowieniaDataG->NR_ZAMOWIENIA}}):<input type="text" name="opis"></input></div>
+                            <div>Zamowienie: {{$zamowieniaDataG->NR_ZAMOWIENIA}}<input type="hidden" value="{{$zamowieniaDataG->NR_ZAMOWIENIA}}" name="zamow"></input></div>
+                            <div>DODAJ OPIS (Do zamówienia {{$zamowieniaDataG->NR_ZAMOWIENIA}}):<div><textarea rows="1" cols="40" class="opiszamowienia" name="opis" placeholder="Tutaj dodać opis"></textarea></div>
+                            </div>
                             <div>Wybierz stan realizacji (Do zamówienia {{$zamowieniaDataG->NR_ZAMOWIENIA}})
-                                <select name="stan">
-                                    <option value="Oczekuje">Oczekuje</option>
-                                    <option value="Zaakceptowane">Zaakceptowane</option>
-                                    <option value="W trakcie">W trakcie</option>
-                                    <option value="Gotowe">Gotowe</option>
-                                </select>
-                                <div><button class="przycisk">Potwierdz</button></div>
+                                <div><select class="statuszamowienia" name="stan">
+                                        <option value="Gotowe">Gotowe</option>
+                                        <option value="Zaakceptowane">Zaakceptowane</option>
+                                        <option value="W trakcie">W trakcie</option>
+                                        <option value="Oczekuje">Oczekuje</option>
+                                    </select></div>
+                                <div><button class="przycisk mtop-20">Potwierdz</button></div>
+                            </div>
                         </form>
-
-                        @endforeach
                     </div>
+                    @endforeach
                 </div>
             </div>
         </div>
     </div>
-
-
-
-    </div>
-    </div>
-
-
 
     <div class="stopka display-flex content-space-between">
         <div class="lewa">

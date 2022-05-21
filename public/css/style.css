@@ -1,39 +1,48 @@
 body {
   margin: 0;
   font-family: Arial, Helvetica, sans-serif;
-  background-color:#181818;
-  color:#eee;
+  background-color: #181818;
+  color: #eee;
 
 }
+
 /* BLOKI I SEKCJE */
-.firma{
-  font-family:Impact;
-  font-size:45px;
-  padding:9px 35px;
-  color:rgb(116, 0, 0);
+.firma {
+  font-family: Impact;
+  font-size: 45px;
+  padding: 9px 35px;
+  color: rgb(116, 0, 0);
 }
-.komunikat{
-  text-align:center;
-  padding:9px 35px;
-  color:rgb(255, 255, 255);
+
+.komunikat {
+  text-align: center;
+  padding: 9px 35px;
+  color: rgb(255, 255, 255);
 }
-.dotted-whiteboard{
+
+.dotted-whiteboard {
   border-right-style: dotted;
   border-color: rgb(240, 240, 240);
 }
-.pogrubiony-czerwony{
-  color:rgb(116, 0, 0);
-  font-weight:bold;
+
+.pogrubiony-czerwony {
+  color: rgb(116, 0, 0);
+  font-weight: bold;
 }
+
 .menu {
-  justify-content:space-between;
+  justify-content: space-between;
   overflow: hidden;
   background-color: #0f0f0f;
-  position: sticky; /* Set the navbar to fixed position */
-  top: 0; /* Position the navbar at the top of the page */
-  width: 100%; /* Full width */
+  position: sticky;
+  /* Set the navbar to fixed position */
+  top: 0;
+  /* Position the navbar at the top of the page */
+  width: 100%;
+  /* Full width */
   box-shadow: 0px 1px white;
 }
+
 .menu a {
   display: block;
   color: #f2f2f2;
@@ -44,6 +53,7 @@ body {
   border-left-style: dotted;
   border-color: white;
 }
+
 .menu a:hover {
   background-color: rgb(82, 82, 82);
   color: rgb(255, 255, 255);
@@ -53,170 +63,267 @@ body {
   background-color: #292626;
   color: white;
 }
-.podtytul{
-  color:rgb(116, 0, 0);
-  text-align:center;
+
+.podtytul {
+  color: rgb(116, 0, 0);
+  text-align: center;
   padding: 20px 100px;
-  font-weight:bold;
+  font-weight: bold;
 }
-.naglowek{
-  width:50%;
-  font-size:20px;
+
+.naglowek {
+  width: 50%;
+  font-size: 20px;
 }
-.naglowekdwa{
-  margin:50px
+
+.naglowekdwa {
+  margin: 50px
 }
-.naglowektrzy{
-  width:100%;
-  margin:50px;
-  font-size:20px;
+
+.naglowektrzy {
+  width: 100%;
+  margin: 50px;
+  font-size: 20px;
 }
-.stopka{
+
+.stopka {
   background-color: #0f0f0f;
-  justify-content:space-between;
+  justify-content: space-between;
   overflow: hidden;
-  position: sticky; /* Set the navbar to fixed position */
-  bottom: 0; /* Position the navbar at the top of the page */
-  width: 100%; /* Full width */
+  position: sticky;
+  /* Set the navbar to fixed position */
+  bottom: 0;
+  /* Position the navbar at the top of the page */
+  width: 100%;
+  /* Full width */
   box-shadow: 0px 1px white;
 }
+
 .main {
-  background-color: #181818;;
+  background-color: #181818;
+  ;
   color: white;
 }
-.nas{
-  font-size:35px;
-  width:100%;
-}
-.blok{
-  background-color:rgb(68, 7, 7);
-  border:solid;
-}
-.opis{  
-  margin:40px;
-}
-/* WIDTH HEIGHT PADDING i MARGIN */
-.w-30p{
-  width:30px;
-}
-.w-15{
-  width:15%;
-}
-.w-30{
-  width:30%;
-}
-.w-20{
-  width:20%
-}
-.w-50{
-  width:50%;
-}
-.w-70{
-  width:70%;
-}
-.w-80{
-  width:80%
-}
-.w-100{
-  width:100%;
-}
-.h-30{
-  height:30px;
-}
-.h-100{
-  height:100%;
-}
-.height-full{
-  height:100%;
-}
-.p-20{
-  padding:20px;
-}
-.pad-bot{
-  padding-bottom:20px;
-}
-.m-5{
-  margin:10px;
-}
-.mbottom-20{
-  margin-bottom:20px;
-}
-.mbottom-center{
-  margin-bottom:15%;
-}
-.mtop-20{
-  margin-top:20px;
-}
-.mtop-center{
-  margin-top:15%;
-}
-/* DISPLAY FLEXY I USTAWIENIE POZYCJI */
-.align-center{
-  align-items:center;
-}
-.object-fit{
-  object-fit:contain;
-}
-.content-space-between{
-  justify-content:space-between;
-}
-.display-flex{
-  display:flex;
-}
-.flexcolumn{
-  flex-direction:column;
-}
-.flexrow{
-  flex-direction:row;
-}
-/* TEKST JAKA STRONA I WIELKOSC */
-.text-left{
-  text-align:left;
-}
-.text-center{
-  text-align:center;
-}
-.text-right{
-  text-align:right;
-}
-.capitalize{
-  text-transform:capitalize;
-}
-.uppercase{
-  text-transform:uppercase;
-}
-/* CZCIONKA */
-.pogrub{
-  font-weight:bold; 
-}
-.fs-25{
-  font-size:25px;
-}
-.fs-15{
-  font-size:15px;
-}
-.font-size{
-  font-size:20px;
-}
-/* KOLORY TEKSTU */
-.color-blue{
-  color:rgb(71, 184, 255)
-}
-/* KOLORY TŁA */
-.kontaktblok{
-  background-color:#0c0c0c;
-}
-/* INPUTY */
-.logowanie{
+
+.nas {
+  font-size: 35px;
   width: 100%;
-  font-size:15px;
+}
+
+.blok {
+  background-color: rgb(68, 7, 7);
+  border: solid;
+}
+
+.opis {
+  margin: 40px;
+}
+
+/* WIDTH HEIGHT PADDING i MARGIN */
+.w-30p {
+  width: 30px;
+}
+
+.w-15 {
+  width: 15%;
+}
+
+.w-30 {
+  width: 30%;
+}
+
+.w-20 {
+  width: 20%
+}
+
+.w-50 {
+  width: 50%;
+}
+
+.w-70 {
+  width: 70%;
+}
+
+.w-80 {
+  width: 80%
+}
+
+.w-100 {
+  width: 100%;
+}
+
+.h-30 {
+  height: 30px;
+}
+
+.h-100 {
+  height: 100%;
+}
+
+.height-full {
+  height: 100%;
+}
+
+.p-20 {
+  padding: 20px;
+}
+
+.pad-bot {
+  padding-bottom: 20px;
+}
+
+.m-5 {
+  margin: 10px;
+}
+
+.mbottom-20 {
+  margin-bottom: 20px;
+}
+
+.mbottom-center {
+  margin-bottom: 15%;
+}
+
+.mtop-20 {
+  margin-top: 20px;
+}
+
+.mtop-center {
+  margin-top: 15%;
+}
+
+/* DISPLAY FLEXY I USTAWIENIE POZYCJI */
+.align-center {
+  align-items: center;
+}
+
+.object-fit {
+  object-fit: contain;
+}
+
+.content-space-between {
+  justify-content: space-between;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.display-flex {
+  display: flex;
+}
+
+.flexcolumn {
+  flex-direction: column;
+}
+
+.flexrow {
+  flex-direction: row;
+}
+
+/* TEKST JAKA STRONA I WIELKOSC */
+.text-left {
+  text-align: left;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.capitalize {
+  text-transform: capitalize;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+/* CZCIONKA */
+.pogrub {
+  font-weight: bold;
+}
+
+.fs-25 {
+  font-size: 25px;
+}
+
+.fs-15 {
+  font-size: 15px;
+}
+
+.font-size {
+  font-size: 20px;
+}
+
+/* KOLORY TEKSTU */
+.color-blue {
+  color: rgb(71, 184, 255)
+}
+
+/* KOLORY TŁA */
+.kontaktblok {
+  background-color: #0c0c0c;
+}
+
+/* INPUTY */
+.logowanie {
+  width: 100%;
+  font-size: 15px;
   border: 2px solid rgb(116, 0, 0);
   padding: 12px 10px;
   margin: 16px 0;
 }
-.formularz{
-  font-size:15px;
+
+.formularz {
+  font-size: 15px;
   border: 2px solid rgb(116, 0, 0);
   padding: 12px 10px;
   margin: 16px 0;
+}
+
+.opiszamowienia {
+  color: blue;
+  background-color: #181818;
+  border: none;
+  border-bottom: 2px solid rgb(255, 255, 255);
+  resize: none;
+}
+
+.opiszamowienia:focus {
+  color: blue;
+  background-color: #000000;
+  border: none;
+  border-bottom: 2px solid rgb(255, 255, 255);
+  height: 100px;
+}
+
+.statuszamowienia {
+  padding: 2px 18px;
+  border-color: white;
+  border-radius: 15px;
+  color: white;
+  background-color: #181818;
+}
+
+.statuszamowienia:focus {
+  padding: 2px 18px;
+  border-color: rgb(214, 213, 213);
+  border-radius: 15px;
+  color: white;
+  background-color: #181818;
+}
+
+/* RAMKI */
+.ramkazamowienia {
+  width: 400px;
+  margin-left: 20px;
+  margin-top: 10px;
+  padding: 10px 10px;
+  border: solid;
+  border-color: rgb(214, 213, 213);
+  border-radius: 15px;
 }

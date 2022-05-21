@@ -70,14 +70,16 @@
             <div class="mtop-20"><button class="przycisk" onclick="location='DodawanieUzytkownikow'">Dodaj Użytkowników</button></div>
         </div>
 
+
+
         <form method="GET" action="PokazUzytkownikow">
             <div class="mtop-20">Wpisz ID_Uzytkownika ktorego chcesz znalezc:</div>
-            <div><input class="przycisk" type="text" pattern="[0-9]{0,15}" name="ID_U"></input><button class="przycisk" type="submit">Znajdz</button></div>
+            <div><input class="przycisk" type="text" pattern="[0-9]{0,15}" name="ID_U"></input><button class="przycisk" type="submit" id="button1">Znajdz</button></div>
             @isset($messageznajdz)<div><b>{{$messageznajdz}}</b></div>@endif
         </form>
 
         @isset($znajdzUzytkownika)
-        <div>
+        <div id="Uzytkownik">
             @foreach($znajdzUzytkownika as $znajdzUzytkownikaData)
             <div>
                 <h1>Wyniki wyszukiwania osoby o ID {{$znajdzUzytkownikaData->ID_Uzytkownika}}:</h1>
