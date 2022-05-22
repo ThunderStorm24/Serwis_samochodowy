@@ -96,30 +96,35 @@ class EdycjaController extends DodawanieController
         }
         //JESLI rola to Mechanik
         if ($this->rola == "Mechanik") {
-            //To pobierz zamowienia Mechanika
-            $zamowienia = DB::table('zamowienie')
-                ->where('ID_Mechanika', $this->ID)
-                ->get();
+            //Zamowienia gdzie ID_Mechanika jest z sesji, czyli zlecenia obecnie zalogowanego mechanika
+            $this->ZamowieniaMechanika();
+            //Zamowienia gdzie ID_Mechanika jest z sesji, czyli zlecenia obecnie zalogowanego mechanika
+            $zamowienia = $this->zamowienia;
             //Wyswietlanie na profilu zamowien do wziecia
-            $zamowieniaDoWziecia = DB::table('zamowienie')
-                ->where('ID_Mechanika', '10')
-                ->get();
+            $zamowieniaDoWziecia = $this->zamowieniaDoWziecia;
             //Zamowienia Gotowe
-            $zamowieniaGotowe = DB::table('zamowienie')
-                ->where('ID_Mechanika', $this->ID)
-                ->where('Stan_Realizacji', 'Gotowe')
-                ->get();
+            $zamowieniaGotowe = $this->zamowieniaGotowe;
+            //Zamowienia Zakonczone
+            $zamowieniaZakonczone = $this->zamowieniaZakonczone;
             //I wyswietl profil mechanika z waznymi zmiennymi
-            return view('ProfilMechanik', compact('uzytkownicy', 'zamowienia', 'uslugi', 'zamowieniaDoWziecia', 'zamowieniaGotowe'), ['rola' => $this->rola, 'login' => $this->login, 'ID' => $this->ID]);
+            return view('ProfilMechanik', compact('uzytkownicy', 'zamowienia', 'uslugi', 'zamowieniaDoWziecia', 'zamowieniaGotowe','zamowieniaZakonczone'), ['rola' => $this->rola, 'login' => $this->login, 'ID' => $this->ID]);
         }
         //JESLI rola to Klient
         if ($this->rola == "Klient") {
             //To pobierz zamowienia Klienta
             $zamowienia = DB::table('zamowienie')
                 ->where('ID_Klienta', $this->ID)
+                ->get();  
+            $zamowieniaGotowe = DB::table('zamowienie')
+                ->where('ID_Klienta', $this->ID)
+                ->where('Stan_Realizacji', 'Gotowe')
+                ->get();
+            $zamowieniaZakonczone=$this->zamowieniaZakonczone = DB::table('zamowienie')
+                ->where('ID_Klienta', $this->ID)
+                ->where('Stan_Realizacji', 'Zakończone')
                 ->get();
             //I wyswietl profil klienta z waznymi zmiennymi
-            return view('ProfilKlienta', compact('uzytkownicy', 'zamowienia', 'uslugi'), ['rola' => $this->rola, 'login' => $this->login, 'ID' => $this->ID]);
+            return view('ProfilKlienta', compact('uzytkownicy', 'zamowienia','zamowieniaGotowe','zamowieniaZakonczone', 'uslugi'), ['rola' => $this->rola, 'login' => $this->login, 'ID' => $this->ID]);
         }
     }
     public function UsunKonto()
@@ -142,20 +147,15 @@ class EdycjaController extends DodawanieController
 
 
         //Zamowienia gdzie ID_Mechanika jest z sesji, czyli zlecenia obecnie zalogowanego mechanika
-        $zamowienia = DB::table('zamowienie')
-            ->where('ID_Mechanika', $this->ID)
-            ->where('Stan_Realizacji', 'W trakcie')
-            ->orWhere('Stan_Realizacji', 'Zaakceptowane')
-            ->get();
+        $this->ZamowieniaMechanika();
+        //Zamowienia gdzie ID_Mechanika jest z sesji, czyli zlecenia obecnie zalogowanego mechanika
+        $zamowienia = $this->zamowienia;
         //Wyswietlanie na profilu zamowien do wziecia
-        $zamowieniaDoWziecia = DB::table('zamowienie')
-            ->where('ID_Mechanika', '10')
-            ->get();
+        $zamowieniaDoWziecia = $this->zamowieniaDoWziecia;
         //Zamowienia Gotowe
-        $zamowieniaGotowe = DB::table('zamowienie')
-            ->where('ID_Mechanika', $this->ID)
-            ->where('Stan_Realizacji', 'Gotowe')
-            ->get();
+        $zamowieniaGotowe = $this->zamowieniaGotowe;
+        //Zamowienia Zakonczone
+        $zamowieniaZakonczone = $this->zamowieniaZakonczone;
 
         //Pobranie danych z formularza
         $opis = $_GET['opis'];
@@ -176,7 +176,7 @@ class EdycjaController extends DodawanieController
         }
 
         //Zwracamy Profil mechanika z potrzebnymi zmiennymi
-        return view('ProfilMechanik', compact('uzytkownicy', 'zamowienia', 'uslugi', 'zamowieniaDoWziecia', 'zamowieniaGotowe'), ['rola' => $this->rola, 'login' => $this->login, 'ID' => $this->ID]);
+        return view('ProfilMechanik', compact('uzytkownicy', 'zamowienia', 'uslugi', 'zamowieniaDoWziecia', 'zamowieniaGotowe', 'zamowieniaZakonczone'), ['rola' => $this->rola, 'login' => $this->login, 'ID' => $this->ID]);
     }
     public function UsunUzytkownikow()
     {
@@ -253,20 +253,15 @@ class EdycjaController extends DodawanieController
         $uzytkownicy = $this->uzytkownicy;
 
         //Zamowienia gdzie ID_Mechanika jest z sesji, czyli zlecenia obecnie zalogowanego mechanika
-        $zamowienia = DB::table('zamowienie')
-            ->where('ID_Mechanika', $this->ID)
-            ->where('Stan_Realizacji', 'W trakcie')
-            ->orWhere('Stan_Realizacji', 'Zaakceptowane')
-            ->get();
+        $this->ZamowieniaMechanika();
+        //Zamowienia gdzie ID_Mechanika jest z sesji, czyli zlecenia obecnie zalogowanego mechanika
+        $zamowienia = $this->zamowienia;
         //Wyswietlanie na profilu zamowien do wziecia
-        $zamowieniaDoWziecia = DB::table('zamowienie')
-            ->where('ID_Mechanika', '10')
-            ->get();
+        $zamowieniaDoWziecia = $this->zamowieniaDoWziecia;
         //Zamowienia Gotowe
-        $zamowieniaGotowe = DB::table('zamowienie')
-            ->where('ID_Mechanika', $this->ID)
-            ->where('Stan_Realizacji', 'Gotowe')
-            ->get();
+        $zamowieniaGotowe = $this->zamowieniaGotowe;
+        //Zamowienia Zakonczone
+        $zamowieniaZakonczone = $this->zamowieniaZakonczone;
 
         //Dane z formularza i automatyczne po nacisnieciu przycisku
         $opis = "Zamowienie zostalo zaakceptowane!";
@@ -276,6 +271,57 @@ class EdycjaController extends DodawanieController
         $update = DB::update('update zamowienie set Opis=? , Stan_Realizacji=? , ID_Mechanika=? where NR_ZAMOWIENIA=? ', [$opis, $stan, $this->ID, $zamow]);
 
         //Zwracamy Profil mechanika z potrzebnymi zmiennymi
-        return view('ProfilMechanik', compact('uzytkownicy', 'zamowienia', 'uslugi', 'zamowieniaDoWziecia', 'zamowieniaGotowe'), ['rola' => $this->rola, 'login' => $this->login, 'ID' => $this->ID]);
+        return view('ProfilMechanik', compact('uzytkownicy', 'zamowienia', 'uslugi', 'zamowieniaDoWziecia', 'zamowieniaGotowe', 'zamowieniaZakonczone'), ['rola' => $this->rola, 'login' => $this->login, 'ID' => $this->ID]);
+    }
+    public function ZakonczStatus()
+    {
+        //Pobranie wszystkich zmiennych do wyswietlenia widoku z danymi z sesji, z wyswietlaniem mechanika i opisami zamowien
+        $this->sesja();
+        $this->WyswietlanieMechanika();
+        $this->OpisZamowien();
+        $uslugi = $this->uslugi;
+        $uzytkownicy = $this->uzytkownicy;
+
+        //Zamowienia gdzie ID_Mechanika jest z sesji, czyli zlecenia obecnie zalogowanego mechanika
+        $this->ZamowieniaMechanika();
+        //Zamowienia gdzie ID_Mechanika jest z sesji, czyli zlecenia obecnie zalogowanego mechanika
+        $zamowienia = $this->zamowienia;
+        //Wyswietlanie na profilu zamowien do wziecia
+        $zamowieniaDoWziecia = $this->zamowieniaDoWziecia;
+        //Zamowienia Gotowe
+        $zamowieniaGotowe = $this->zamowieniaGotowe;
+        //Zamowienia Zakonczone
+        $zamowieniaZakonczone = $this->zamowieniaZakonczone;
+
+        //Dane z formularza i automatyczne po nacisnieciu przycisku
+        $Nr_Z = $_GET['zamow'];
+        $stan = "Zakończone";
+
+        $update = DB::update('update zamowienie set Stan_Realizacji=? where NR_ZAMOWIENIA=? ', [$stan, $Nr_Z]);
+        //Zwracamy Profil mechanika z potrzebnymi zmiennymi
+        return view('ProfilMechanik', compact('uzytkownicy', 'zamowienia', 'uslugi', 'zamowieniaDoWziecia', 'zamowieniaGotowe', 'zamowieniaZakonczone'), ['rola' => $this->rola, 'login' => $this->login, 'ID' => $this->ID]);
+    }
+    public function ZamowieniaMechanika()
+    {
+        //Zamowienia gdzie ID_Mechanika jest z sesji, czyli zlecenia obecnie zalogowanego mechanika
+        $this->zamowienia = DB::table('zamowienie')
+            ->where('ID_Mechanika', $this->ID)
+            ->where('Stan_Realizacji', 'W trakcie')
+            ->orWhere('Stan_Realizacji', 'Zaakceptowane')
+            ->get();
+        //Wyswietlanie na profilu zamowien do wziecia
+        $this->zamowieniaDoWziecia = DB::table('zamowienie')
+            ->where('ID_Mechanika', '10')
+            ->get();
+        //Zamowienia Gotowe
+        $this->zamowieniaGotowe = DB::table('zamowienie')
+            ->where('ID_Mechanika', $this->ID)
+            ->where('Stan_Realizacji', 'Gotowe')
+            ->get();
+        //Zamowienia Ukończone
+        $this->zamowieniaZakonczone = DB::table('zamowienie')
+            ->where('ID_Mechanika', $this->ID)
+            ->where('Stan_Realizacji', 'Zakończone')
+            ->get();
     }
 }

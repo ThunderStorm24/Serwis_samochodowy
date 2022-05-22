@@ -148,6 +148,10 @@ body {
   width: 80%
 }
 
+.w-90 {
+  width: 90%
+}
+
 .w-100 {
   width: 100%;
 }
@@ -255,6 +259,10 @@ body {
   font-size: 15px;
 }
 
+.fs-20 {
+  font-size: 20px;
+}
+
 .font-size {
   font-size: 20px;
 }
@@ -317,6 +325,53 @@ body {
   background-color: #181818;
 }
 
+
+/*CHECKBOXY*/
+input[type=checkbox] + label {
+  display: block;
+  margin: 0.2em;
+  cursor: pointer;
+  padding: 0.2em;
+}
+
+input[type=checkbox] {
+  display: none;
+}
+
+input[type=checkbox] + label:before {
+  content: "\2714";
+  background-color:white;
+  border: 0.1em solid #000;
+  border-radius: 0.5em;
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  padding-left: 0.2em;
+  padding-bottom: 0.3em;
+  margin-right: 0.2em;
+  vertical-align: bottom;
+  color: transparent;
+  transition: .2s;
+}
+.kolor + label:hover {
+  background-color:green;
+  border: 0.2em solid #000;
+  font-weight: 700;
+  
+}
+.kolor:checked + label:hover {
+  background-color:red;
+  border: 0.2em solid #000;
+  font-weight: 700;
+}
+input[type=checkbox] + label:active:before {
+  transform: scale(0);
+}
+input[type=checkbox]:checked + label:before {
+  background-color: MediumSeaGreen;
+  border-color: MediumSeaGreen;
+  color: #fff;
+}
 /* RAMKI */
 .ramkazamowienia {
   width: 400px;

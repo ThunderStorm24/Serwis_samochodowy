@@ -2,7 +2,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>My test page</title>
+    <title>Rejestracja - Panel Admina</title>
     <link rel="stylesheet" href="{{url('css/style.css')}}">
     <link href="{{url('css/stylebox.css')}}" rel="stylesheet">
 </head>

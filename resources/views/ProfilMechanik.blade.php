@@ -138,7 +138,7 @@
 
                 </div>
                 <div class="blok p-20 mtop-20">
-                    <h1>Ukończone zamówienia:</h1>
+                    <h1>Gotowe do odbioru zamówienia:</h1>
                 </div>
 
                 <div class="display-flex flex-wrap">
@@ -169,11 +169,45 @@
                                         <option value="Oczekuje">Oczekuje</option>
                                     </select></div>
                                 <div><button class="przycisk mtop-20">Potwierdz</button></div>
+
                             </div>
                         </form>
+                        <form action="Zakoncz_Status" method="GET">
+                            <input type="hidden" value="{{$zamowieniaDataG->NR_ZAMOWIENIA}}" name="zamow"></input>
+                            <div><button class="przycisk mtop-20 w-100">Zakończ</button></div>
+                        </form>
+
                     </div>
                     @endforeach
                 </div>
+
+                <div class="blok p-20 mtop-20">
+                    <h1>Zakończone zamówienia:</h1>
+                </div>
+
+                <div class="display-flex flex-wrap">
+
+                    @foreach($zamowieniaZakonczone as $zamowieniaDataEND)
+                    <div class="ramkazamowienia display-flex flexcolumn">
+                        <div class="mtop-20">
+                            <h2>Numer_Zamówienia: {{$zamowieniaDataEND->NR_ZAMOWIENIA}}</h2>
+                        </div>
+                        <div>Stan_Realizacji: {{$zamowieniaDataEND->Stan_Realizacji}}</div>
+                        <div>Data Zamówienia: {{$zamowieniaDataEND->Data_zamowienia}}</div>
+                        <div>Data Realizacji: {{$zamowieniaDataEND->Data_realizacji}}</div>
+                        <div>Opis: {{$zamowieniaDataEND->Opis}}</div>
+                        <div>ID_Mechanika: {{$zamowieniaDataEND->ID_Mechanika}}</div>
+                        <div>ID_Klienta {{$zamowieniaDataEND->ID_Klienta}}</div>
+                        <div>Uslugi: @foreach($uslugi as $uslugiData) @if($uslugiData->NR_ZAMOWIENIA==$zamowieniaDataEND->NR_ZAMOWIENIA) ({{$uslugiData->Nazwa_Uslugi}}) @endif @endforeach</div>
+                        <div>Cena: @foreach($uslugi as $uslugiData) @if($uslugiData->NR_ZAMOWIENIA==$zamowieniaDataEND->NR_ZAMOWIENIA) {{$uslugiData->Koszt}} zł @endif @endforeach</div>
+                    </div>
+                    @endforeach
+                </div>
+
+
+
+
+
             </div>
         </div>
     </div>

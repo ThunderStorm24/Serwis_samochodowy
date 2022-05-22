@@ -92,7 +92,7 @@
         </div>
 
         <div class="blok mtop-20 p-20">
-            <h1>Moje Ukończone Zamówienia:</h1>
+            <h1>Moje Gotowe Zamówienia:</h1>
         </div>
         <div class="display-flex flex-wrap">
             @foreach($zamowieniaGotowe as $zamowieniaData)
@@ -106,6 +106,26 @@
                 <div>ID_Klienta {{$zamowieniaData->ID_Klienta}}</div>
                 <div>Uslugi: @foreach($uslugi as $uslugiData) @if($uslugiData->NR_ZAMOWIENIA==$zamowieniaData->NR_ZAMOWIENIA) ({{$uslugiData->Nazwa_Uslugi}}) @endif @endforeach</div>
                 <div>Cena: @foreach($uslugi as $uslugiData) @if($uslugiData->NR_ZAMOWIENIA==$zamowieniaData->NR_ZAMOWIENIA) {{$uslugiData->Koszt}} zł @endif @endforeach</div>
+            </div>
+            @endforeach
+        </div>
+
+
+        <div class="blok mtop-20 p-20">
+            <h1>Moje Ukończone Zamówienia:</h1>
+        </div>
+        <div class="display-flex flex-wrap">
+            @foreach($zamowieniaZakonczone as $zamowieniaDataEND)
+            <div class="ramkazamowienia display-flex flexcolumn">
+                <div>Numer_Zamówienia: {{$zamowieniaDataEND->NR_ZAMOWIENIA}}</div>
+                <div>Stan_Realizacji: {{$zamowieniaDataEND->Stan_Realizacji}}</div>
+                <div>Data Zamówienia: {{$zamowieniaDataEND->Data_zamowienia}}</div>
+                <div>Data Realizacji: {{$zamowieniaDataEND->Data_realizacji}}</div>
+                <div>Opis: {{$zamowieniaDataEND->Opis}}</div>
+                <div>ID_Mechanika: {{$zamowieniaDataEND->ID_Mechanika}}</div>
+                <div>ID_Klienta {{$zamowieniaDataEND->ID_Klienta}}</div>
+                <div>Uslugi: @foreach($uslugi as $uslugiData) @if($uslugiData->NR_ZAMOWIENIA==$zamowieniaDataEND->NR_ZAMOWIENIA) ({{$uslugiData->Nazwa_Uslugi}}) @endif @endforeach</div>
+                <div>Cena: @foreach($uslugi as $uslugiData) @if($uslugiData->NR_ZAMOWIENIA==$zamowieniaDataEND->NR_ZAMOWIENIA) {{$uslugiData->Koszt}} zł @endif @endforeach</div>
             </div>
             @endforeach
         </div>

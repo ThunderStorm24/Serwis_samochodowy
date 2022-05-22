@@ -2,7 +2,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Profil klienta</title>
+    <title>Edycja profilu</title>
     <link rel="stylesheet" href="{{url('css/style.css')}}">
     <link rel="stylesheet" href="{{url('css/stylebox.css')}}">
 </head>

@@ -94,11 +94,16 @@ class SerwisController extends Controller
             ->where('ID_Mechanika', $this->ID)
             ->where('Stan_Realizacji', 'Gotowe')
             ->get();
+        //Zamowienia Ukończone
+        $zamowieniaZakonczone=$this->zamowieniaZakonczone = DB::table('zamowienie')
+            ->where('ID_Mechanika', $this->ID)
+            ->where('Stan_Realizacji', 'Zakończone')
+            ->get();
 
         $this->OpisZamowien();
         $uslugi = $this->uslugi;
 
-        return view('ProfilMechanik', compact('uzytkownicy', 'zamowienia', 'uslugi', 'zamowieniaDoWziecia', 'zamowieniaGotowe'), ['rola' => $this->rola, 'login' => $this->login, 'ID' => $this->ID]);
+        return view('ProfilMechanik', compact('uzytkownicy', 'zamowienia', 'uslugi', 'zamowieniaDoWziecia', 'zamowieniaGotowe','zamowieniaZakonczone'), ['rola' => $this->rola, 'login' => $this->login, 'ID' => $this->ID]);
     }
     public function WyswietlanieKlienta()
     {
@@ -115,16 +120,21 @@ class SerwisController extends Controller
             ->orWhere('Stan_Realizacji', 'Oczekuje')
             ->where('ID_Klienta', $this->ID)
             ->get();
-        //Ukonczone Zamowienia
+        //Gotowe Zamowienia
         $zamowieniaGotowe = DB::table('zamowienie')
             ->where('ID_Klienta', $this->ID)
             ->where('Stan_Realizacji', 'Gotowe')
+            ->get();
+        //Zamowienia Ukonczone
+        $zamowieniaZakonczone=$this->zamowieniaZakonczone = DB::table('zamowienie')
+            ->where('ID_Klienta', $this->ID)
+            ->where('Stan_Realizacji', 'Zakończone')
             ->get();
 
         $this->OpisZamowien();
         $uslugi = $this->uslugi;
 
-        return view('ProfilKlienta', compact('uzytkownicy', 'zamowienia', 'uslugi', 'zamowieniaGotowe'), ['rola' => $this->rola, 'login' => $this->login, 'ID' => $this->ID]);
+        return view('ProfilKlienta', compact('uzytkownicy', 'zamowienia', 'uslugi', 'zamowieniaGotowe','zamowieniaZakonczone'), ['rola' => $this->rola, 'login' => $this->login, 'ID' => $this->ID]);
     }
     public function OpisZamowien()
     {

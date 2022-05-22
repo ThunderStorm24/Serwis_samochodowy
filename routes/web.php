@@ -5,6 +5,7 @@ use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SerwisController;
 use App\Http\Controllers\DodawanieController;
+use App\Http\Controllers\ZamowController;
 
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
@@ -63,9 +64,7 @@ if ($this->rola != "Zaloguj/Zarejestruj") {
     } else if ($this->rola == "Klient") {
         Route::get('/Logowanie', [SerwisController::class, 'WyswietlanieKlienta']);
     }
-        Route::get('/Zamow', function () {
-        return view('Zamow', ['rola' => $this->rola]);
-        });
+    Route::get('/Zamow', [ZamowController::class, 'uslugishow']);
 } else {
     Route::get('/Logowanie', function () {
         return view('Logowanie');
@@ -92,3 +91,4 @@ Route::get('/ZarejestrujAdmin',[DodawanieController::class,'RejestracjaAdmin']);
 Route::get('/UsunUzytkownikow',[EdycjaController::class,'UsunUzytkownikow']);
 Route::get('/PokazUzytkownikow',[EdycjaController::class,'ZnajdzUzytkownikow']);
 Route::get('/Akceptuj_Zlecenie',[EdycjaController::class,'AkceptujZlecenie']);
+Route::get('/Zakoncz_Status',[EdycjaController::class,'ZakonczStatus']);

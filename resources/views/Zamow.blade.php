@@ -2,8 +2,9 @@
 
 <head>
     <meta charset="utf-8">
-    <title>My test page</title>
+    <title>Zamawianie</title>
     <link rel="stylesheet" href="{{url('css/style.css')}}">
+    <link rel="stylesheet" href="{{url('css/stylebox.css')}}">
 </head>
 
 <body>
@@ -36,180 +37,49 @@
             <a href="Logowanie">@isset($rola){{$rola}} @else Zaloguj / Zarejestruj @endif</a>
         </div>
     </div>
+    <form action="ZamowUslugi" method="GET">
+        <div class="main display-flex flexcolumn align-center">
 
-    <div class="main display-flex flexcolumn align-center">
-        <div class="blok mbottom-20 mtop-20 p-20 w-70 ">
-            <div>
-                <h2>Usługa 1</h2>
-            </div>
-            <div class="display-flex content-space-between">
-                <div class="w-80">
-                    <div class="pogrub">Opis</div>
-                    <div>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sit recusandae deserunt unde numquam.
-                        Omnis ad eos, velit quia fuga eaque, enim impedit quasi adipisci nam doloribus cum temporibus
-                        doloremque. Nostrum.</div>
+            @foreach ($uslugi as $uslugiData)
+            <div class="blok mbottom-20 mtop-20 p-20 w-70 ">
+                <div class="display-flex content-space-between">
+                    <div>
+                        <h2>{{$uslugiData->ID_Uslugi}}. {{$uslugiData->Nazwa_Uslugi}}</h2>
+                    </div>
+                    <div>
+                    <input type="checkbox" class="kolor" id="Usluga_{{$uslugiData->ID_Uslugi}}" name="Usluga{{$uslugiData->ID_Uslugi}}" value="{{$uslugiData->ID_Uslugi}}" onclick="showContent('{{$uslugiData->ID_Uslugi}}')">
+                    <label class="zmiana" for="Usluga_{{$uslugiData->ID_Uslugi}}">Chce usluge {{$uslugiData->ID_Uslugi}}</label></input>
+                    </div>
+                </div>
+                <div class="display-flex content-space-between">
+                    <div class="w-80">
+                        <div class="pogrub">Opis</div>
+                        <div>{{$uslugiData->Opis}}</div>
+                    </div>
+
+                    <div class="w-20 text-right">
+                        <div class="pogrub">Cena</div>
+                        <div><input type="hidden" value="{{$uslugiData->Cena}}" id="Cena_{{$uslugiData->ID_Uslugi}}">{{$uslugiData->Cena}}</span> zł</div>
+                    </div>
                 </div>
 
-                <div class="w-20 text-right">
-                    <div class="pogrub">Cena</div>
-                    <div>70 zł</div>
-                </div>
             </div>
-
-        </div>
-        <div class="blok mbottom-20 mtop-20 p-20 w-70 ">
-            <div>
-                <h2>Usługa 2</h2>
-            </div>
-            <div class="display-flex content-space-between">
-                <div class="w-80">
-                    <div class="pogrub">Opis</div>
-                    <div>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sit recusandae deserunt unde numquam.
-                        Omnis ad eos, velit quia fuga eaque, enim impedit quasi adipisci nam doloribus cum temporibus
-                        doloremque. Nostrum.</div>
+            @endforeach
+            <div class="blok mbottom-20 mtop-20 p-20 w-90">
+                <div>Uslugi:
+                    @foreach($uslugi as $uslugiData)
+                    <p id="text_{{$uslugiData->ID_Uslugi}}" style="display:none">{{$uslugiData->ID_Uslugi}}. {{$uslugiData->Nazwa_Uslugi}}</p>
+                    @endforeach
                 </div>
-
-                <div class="w-20 text-right">
-                    <div class="pogrub">Cena</div>
-                    <div>70 zł</div>
+                <div>Cena:
+                    <p id="suma">Tu sie pojawi cena</p>
                 </div>
+                <div><input type="checkbox" class="mtop-20" name="umowa" id="umowa_1"><label for="umowa_1">Akceptuje warunki umowy pod odsyłaczem:</label> </input></div><a href="#Umowa" class="color-blue">Umowa uzytkownika</a>
+                <div><button class="przycisk mtop-20">Zamow</button></div>
             </div>
-
-        </div>
-        <div class="blok mbottom-20 mtop-20 p-20 w-70 ">
-            <div>
-                <h2>Usługa 3</h2>
-            </div>
-            <div class="display-flex content-space-between">
-                <div class="w-80">
-                    <div class="pogrub">Opis</div>
-                    <div>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sit recusandae deserunt unde numquam.
-                        Omnis ad eos, velit quia fuga eaque, enim impedit quasi adipisci nam doloribus cum temporibus
-                        doloremque. Nostrum.</div>
-                </div>
-
-                <div class="w-20 text-right">
-                    <div class="pogrub">Cena</div>
-                    <div>70 zł</div>
-                </div>
-            </div>
-
-        </div>
-        <div class="blok mbottom-20 mtop-20 p-20 w-70 ">
-            <div>
-                <h2>Usługa 4</h2>
-            </div>
-            <div class="display-flex content-space-between">
-                <div class="w-80">
-                    <div class="pogrub">Opis</div>
-                    <div>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sit recusandae deserunt unde numquam.
-                        Omnis ad eos, velit quia fuga eaque, enim impedit quasi adipisci nam doloribus cum temporibus
-                        doloremque. Nostrum.</div>
-                </div>
-
-                <div class="w-20 text-right">
-                    <div class="pogrub">Cena</div>
-                    <div>70 zł</div>
-                </div>
-            </div>
-
-        </div>
-        <div class="blok mbottom-20 mtop-20 p-20 w-70 ">
-            <div>
-                <h2>Usługa 5</h2>
-            </div>
-            <div class="display-flex content-space-between">
-                <div class="w-80">
-                    <div class="pogrub">Opis</div>
-                    <div>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sit recusandae deserunt unde numquam.
-                        Omnis ad eos, velit quia fuga eaque, enim impedit quasi adipisci nam doloribus cum temporibus
-                        doloremque. Nostrum.</div>
-                </div>
-
-                <div class="w-20 text-right">
-                    <div class="pogrub">Cena</div>
-                    <div>70 zł</div>
-                </div>
-            </div>
-
-        </div>
-        <div class="blok mbottom-20 mtop-20 p-20 w-70 ">
-            <div>
-                <h2>Usługa 6</h2>
-            </div>
-            <div class="display-flex content-space-between">
-                <div class="w-80">
-                    <div class="pogrub">Opis</div>
-                    <div>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sit recusandae deserunt unde numquam.
-                        Omnis ad eos, velit quia fuga eaque, enim impedit quasi adipisci nam doloribus cum temporibus
-                        doloremque. Nostrum.</div>
-                </div>
-
-                <div class="w-20 text-right">
-                    <div class="pogrub">Cena</div>
-                    <div>70 zł</div>
-                </div>
-            </div>
-
-        </div>
-        <div class="blok mbottom-20 mtop-20 p-20 w-70 ">
-            <div>
-                <h2>Usługa 7</h2>
-            </div>
-            <div class="display-flex content-space-between">
-                <div class="w-80">
-                    <div class="pogrub">Opis</div>
-                    <div>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sit recusandae deserunt unde numquam.
-                        Omnis ad eos, velit quia fuga eaque, enim impedit quasi adipisci nam doloribus cum temporibus
-                        doloremque. Nostrum.</div>
-                </div>
-
-                <div class="w-20 text-right">
-                    <div class="pogrub">Cena</div>
-                    <div>70 zł</div>
-                </div>
-            </div>
-
-        </div>
-        <div class="blok mbottom-20 mtop-20 p-20 w-70 ">
-            <div>
-                <h2>Usługa 8</h2>
-            </div>
-            <div class="display-flex content-space-between">
-                <div class="w-80">
-                    <div class="pogrub">Opis</div>
-                    <div>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sit recusandae deserunt unde numquam.
-                        Omnis ad eos, velit quia fuga eaque, enim impedit quasi adipisci nam doloribus cum temporibus
-                        doloremque. Nostrum.</div>
-                </div>
-
-                <div class="w-20 text-right">
-                    <div class="pogrub">Cena</div>
-                    <div>70 zł</div>
-                </div>
-            </div>
-
-        </div>
-        <div class="blok mbottom-20 mtop-20 p-20 w-70 ">
-            <div>
-                <h2>Usługa 9</h2>
-            </div>
-            <div class="display-flex content-space-between">
-                <div class="w-80">
-                    <div class="pogrub">Opis</div>
-                    <div>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sit recusandae deserunt unde numquam.
-                        Omnis ad eos, velit quia fuga eaque, enim impedit quasi adipisci nam doloribus cum temporibus
-                        doloremque. Nostrum.</div>
-                </div>
-
-                <div class="w-20 text-right">
-                    <div class="pogrub">Cena</div>
-                    <div>70 zł</div>
-                </div>
-            </div>
-
-        </div>
+    </form>
     </div>
+
 
     <div class="stopka display-flex content-space-between">
         <div class="lewa">
@@ -221,5 +91,29 @@
     </div>
 
 </body>
+
+<script>
+
+    var sum=0;
+function showContent(a) {
+    
+  var liczba = document.getElementById("Cena_"+a).value;
+  var checkBox = document.getElementById("Usluga_"+a);
+  var text = document.getElementById("text_"+a);
+  liczba=Number(liczba);
+
+  if (checkBox.checked == true){
+    text.style.display = "block";
+    sum += liczba
+  } else {
+    text.style.display = "none";
+    sum -= liczba
+  }
+
+  document.getElementById('suma').innerHTML = sum + " zł";
+
+}
+
+</script>
 
 </html>
