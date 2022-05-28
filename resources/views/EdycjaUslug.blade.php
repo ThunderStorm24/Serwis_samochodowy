@@ -43,27 +43,52 @@
         <div class="blok mbottom-20 mtop-20 p-20 w-70 ">
             <div class="text-center">Witaj {{$rola}}!</div>
             <div class="mtop-20">
-                <button class="przycisk" onclick="location='EdycjaUslug'">Przejdź do edycji usług</button>
+                <button class="przycisk" onclick="location='Uslugi'">Powrót</button>
             </div>
         </div>
+                
         @endif
-        @foreach ($uslugi as $uslugiData)
+
         <div class="blok mbottom-20 mtop-20 p-20 w-70 ">
+        <form method="GET" action="DodajUsluge">
             <div>
-                <h2>{{$uslugiData->ID_Uslugi}}. {{$uslugiData->Nazwa_Uslugi}}</h2>
+                <h2><input type="hidden" value="" name="id"></input>. <input class="inputyuslug" name="nazwa" type="text" value=""></input></h2>
             </div>
             <div class="display-flex content-space-between">
                 <div class="w-80">
                     <div class="pogrub">Opis</div>
-                    <div>{{$uslugiData->Opis}}</div>
+                    <div><textarea rows="1" cols="40" class="opisuslug" name="opis" placeholder="Tutaj dodać opis"></textarea></div>
                 </div>
 
                 <div class="w-20 text-right">
                     <div class="pogrub">Cena</div>
-                    <div>{{$uslugiData->Cena}} zł</div>
+                    <div><input class="inputyuslug" type="number" value="" name="cena"></input> zł</div>
                 </div>
             </div>
+            <button class="przycisk mtop-20">Dodaj Usluge</button>
+            </form>
+        </div>
 
+
+        @foreach ($uslugi as $uslugiData)
+        <div class="blok mbottom-20 mtop-20 p-20 w-70 ">
+        <form method="GET" action="AkceptujUslugi">
+            <div>
+                <h2><input type="hidden" value="{{$uslugiData->ID_Uslugi}}" name="id"></input>{{$uslugiData->ID_Uslugi}}. <input class="inputyuslug" name="nazwa" type="text" value="{{$uslugiData->Nazwa_Uslugi}}"></input></h2>
+            </div>
+            <div class="display-flex content-space-between">
+                <div class="w-80">
+                    <div class="pogrub">Opis</div>
+                    <div><textarea rows="1" cols="40" class="opisuslug" name="opis" placeholder="Tutaj dodać opis">{{$uslugiData->Opis}}</textarea></div>
+                </div>
+
+                <div class="w-20 text-right">
+                    <div class="pogrub">Cena</div>
+                    <div><input class="inputyuslug" type="number" value="{{$uslugiData->Cena}}" name="cena"></input> zł</div>
+                </div>
+            </div>
+            <button class="przycisk mtop-20">Akceptuj Zmiany</button>
+            </form>
         </div>
         @endforeach
     </div>

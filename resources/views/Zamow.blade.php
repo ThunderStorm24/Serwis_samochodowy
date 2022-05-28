@@ -47,7 +47,7 @@
                         <h2>{{$uslugiData->ID_Uslugi}}. {{$uslugiData->Nazwa_Uslugi}}</h2>
                     </div>
                     <div>
-                    <input type="checkbox" class="kolor" id="Usluga_{{$uslugiData->ID_Uslugi}}" name="Usluga{{$uslugiData->ID_Uslugi}}" value="{{$uslugiData->ID_Uslugi}}" onclick="showContent('{{$uslugiData->ID_Uslugi}}')">
+                    <input type="checkbox" class="kolor" id="Usluga_{{$uslugiData->ID_Uslugi}}" name="Usluga[]" value="{{$uslugiData->ID_Uslugi}}" onclick="showContent('{{$uslugiData->ID_Uslugi}}')">
                     <label class="zmiana" for="Usluga_{{$uslugiData->ID_Uslugi}}">Chce usluge {{$uslugiData->ID_Uslugi}}</label></input>
                     </div>
                 </div>
@@ -66,15 +66,17 @@
             </div>
             @endforeach
             <div class="blok mbottom-20 mtop-20 p-20 w-90">
+                @isset($message) <div class="fs-25 mbottom-20">BŁĄD:</div><div class="fs-25 mbottom-20"><b><li>{{$message}}</li></b></div> @endif
                 <div>Uslugi:
                     @foreach($uslugi as $uslugiData)
-                    <p id="text_{{$uslugiData->ID_Uslugi}}" style="display:none">{{$uslugiData->ID_Uslugi}}. {{$uslugiData->Nazwa_Uslugi}}</p>
+                    <div id="text_{{$uslugiData->ID_Uslugi}}" style="display:none">{{$uslugiData->ID_Uslugi}}. {{$uslugiData->Nazwa_Uslugi}}</div>
                     @endforeach
                 </div>
-                <div>Cena:
-                    <p id="suma">Tu sie pojawi cena</p>
+                <div class="mtop-20">Cena:
+                    <div id="suma">Tu sie pojawi cena</div>
+                    <input id="Koszt" type="hidden" name="Koszt"></input>
                 </div>
-                <div><input type="checkbox" class="mtop-20" name="umowa" id="umowa_1"><label for="umowa_1">Akceptuje warunki umowy pod odsyłaczem:</label> </input></div><a href="#Umowa" class="color-blue">Umowa uzytkownika</a>
+                <div class="mtop-20"><input type="checkbox" class="mtop-20" name="umowa" id="umowa_1"><label for="umowa_1">Akceptuje warunki umowy pod odsyłaczem:</label> </input></div><a href="#Umowa" class="color-blue">Umowa uzytkownika</a>
                 <div><button class="przycisk mtop-20">Zamow</button></div>
             </div>
     </form>
@@ -94,12 +96,12 @@
 
 <script>
 
-    var sum=0;
+    let sum=0;
 function showContent(a) {
     
-  var liczba = document.getElementById("Cena_"+a).value;
-  var checkBox = document.getElementById("Usluga_"+a);
-  var text = document.getElementById("text_"+a);
+  let liczba = document.getElementById("Cena_"+a).value;
+  let checkBox = document.getElementById("Usluga_"+a);
+  let text = document.getElementById("text_"+a);
   liczba=Number(liczba);
 
   if (checkBox.checked == true){
@@ -109,9 +111,9 @@ function showContent(a) {
     text.style.display = "none";
     sum -= liczba
   }
-
-  document.getElementById('suma').innerHTML = sum + " zł";
-
+  document.getElementById('suma').textContent ="Łącznie: " + sum + " zł";
+  Koszt = document.getElementById("Koszt"); 
+  Koszt.value=sum;
 }
 
 </script>

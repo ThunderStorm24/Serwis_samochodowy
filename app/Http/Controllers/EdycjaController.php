@@ -324,4 +324,25 @@ class EdycjaController extends DodawanieController
             ->where('Stan_Realizacji', 'Zakończone')
             ->get();
     }
+
+    public function PrzejdzDoEdycji()
+    {
+        $this->sesja();
+        $uslugi = DB::table('uslugi')->get();
+        return view('EdycjaUslug',compact('uslugi'),['rola' => $this->rola]);
+    }
+    public function AkceptujUslugi(Request $req)
+    {
+        $Nazwa=$_GET['nazwa'];
+        $Cena=$_GET['cena'];
+        $Opis=$_GET['opis'];
+        $ID=$_GET['id'];
+
+        $change = DB::update('update uslugi set Nazwa_Uslugi=?,Cena=?,Opis=? where ID_Uslugi=?',[$Nazwa,$Cena,$Opis,$ID]);
+
+        $this->sesja();
+        $uslugi = DB::table('uslugi')->get();
+        return view('Uslugi',compact('uslugi'),['rola' => $this->rola]);
+    }
 }
+    

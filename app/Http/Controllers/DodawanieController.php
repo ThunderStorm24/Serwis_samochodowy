@@ -24,7 +24,7 @@ class DodawanieController extends SerwisController
                 'kod' => 'required|regex:"^[0-9]{2}\-[0-9]{3}"',
                 'telefon' => 'required|regex:"^[0-9\-\+]{12,12}$"|unique:uzytkownicy,Nr_telefonu',
                 'mail' => 'required|regex:"^[a-z0-9]+\@[a-z]+\.[a-z]+"|min:7|max:40|unique:uzytkownicy,Mail',
-                'login' => 'required|regex:".\S"|min:3|max:40"|unique:uzytkownicy,login',
+                'login' => 'required|regex:".\S"|min:3|max:40|unique:uzytkownicy,login',
                 'haslo' => 'required|regex:"^[A-Z]{1}.\S"|min:8|max:40',
                 'phaslo' => 'required|regex:"^[A-Z]{1}.\S"|min:8|max:40|same:haslo'
             ],
@@ -42,7 +42,7 @@ class DodawanieController extends SerwisController
                 'phaslo.regex' => 'Powtórzone hasło ma się zaczynać z Dużej litery',
                 'phaslo.same'=>'Hasła nie są takie same!',
                 'required' => 'Pole :attribute nie może być puste!',
-                'unique' => 'Pole :attribute znajduje się już w naszej bazie!'
+                'unique' => ' :attribute znajduje się już w naszej bazie!'
             ]
         );
     }
@@ -104,5 +104,16 @@ class DodawanieController extends SerwisController
 
         //Wyswietlenie widoku Admina ze wszystkimi parametrami
         return view('ProfilAdmin', compact('uzytkownicy', 'pracownicy', 'admini', 'klienci', 'order'), ['rola' => $this->rola, 'login' => $this->login]);
+    }
+    public function DodajUsluge(){
+        $Nazwa=$_GET['nazwa'];
+        $Cena=$_GET['cena'];
+        $Opis=$_GET['opis'];
+
+        $insert = DB::insert('INSERT INTO uslugi(Nazwa_Uslugi,Cena,Opis) values(?,?,?)',[$Nazwa,$Cena,$Opis]);
+
+        $this->sesja();
+        $uslugi = DB::table('uslugi')->get();
+        return view('Uslugi',compact('uslugi'),['rola' => $this->rola]);
     }
 }

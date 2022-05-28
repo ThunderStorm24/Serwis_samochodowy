@@ -88,8 +88,8 @@
                         <div>Opis: {{$zamowieniaData->Opis}}</div>
                         <div>ID_Mechanika: {{$zamowieniaData->ID_Mechanika}}</div>
                         <div>ID_Klienta {{$zamowieniaData->ID_Klienta}}</div>
-                        <div>Uslugi: @foreach($uslugi as $uslugiData) @if($uslugiData->NR_ZAMOWIENIA==$zamowieniaData->NR_ZAMOWIENIA) ({{$uslugiData->Nazwa_Uslugi}}) @endif @endforeach</div>
-                        <div>Cena: @foreach($uslugi as $uslugiData) @if($uslugiData->NR_ZAMOWIENIA==$zamowieniaData->NR_ZAMOWIENIA) {{$uslugiData->Koszt}} zł @endif @endforeach</div>
+                        <div>Uslugi: @foreach($uslugi as $uslugiData) @if($uslugiData->NR_ZAMOWIENIA==$zamowieniaData->NR_ZAMOWIENIA) ({{$uslugiData->Nazwa_Uslugi}} - {{$uslugiData->Koszt}} zł) @endif @endforeach</div>
+                        <div>W sumie do zapłacenia: {{$zamowieniaData->Suma}} zł</div> 
 
                         <form action="Dodaj_Status" method="GET">
                             <div>Zamowienie: {{$zamowieniaData->NR_ZAMOWIENIA}}<input type="hidden" value="{{$zamowieniaData->NR_ZAMOWIENIA}}" name="zamow"></input></div>
@@ -126,8 +126,8 @@
                         <div>Data Realizacji: {{$zamowieniaDataW->Data_realizacji}}</div>
                         <div>Opis: {{$zamowieniaDataW->Opis}}</div>
                         <div>ID_Klienta {{$zamowieniaDataW->ID_Klienta}}</div>
-                        <div>Uslugi: @foreach($uslugi as $uslugiData) @if($uslugiData->NR_ZAMOWIENIA==$zamowieniaDataW->NR_ZAMOWIENIA) ({{$uslugiData->Nazwa_Uslugi}}) @endif @endforeach</div>
-                        <div>Cena: @foreach($uslugi as $uslugiData) @if($uslugiData->NR_ZAMOWIENIA==$zamowieniaDataW->NR_ZAMOWIENIA) {{$uslugiData->Koszt}} zł @endif @endforeach</div>
+                        <div>Uslugi: @foreach($uslugi as $uslugiData) @if($uslugiData->NR_ZAMOWIENIA==$zamowieniaDataW->NR_ZAMOWIENIA) ({{$uslugiData->Nazwa_Uslugi}} - {{$uslugiData->Koszt}} zł) @endif @endforeach</div>
+                        <div>W sumie do zapłacenia: {{$zamowieniaDataW->Suma}} zł</div> 
 
                         <form action="Akceptuj_Zlecenie" method="GET">
                             <div>Zamowienie: {{$zamowieniaDataW->NR_ZAMOWIENIA}}<input type="hidden" value="{{$zamowieniaDataW->NR_ZAMOWIENIA}}" name="zamow"></input></div>
@@ -154,8 +154,8 @@
                         <div>Opis: {{$zamowieniaDataG->Opis}}</div>
                         <div>ID_Mechanika: {{$zamowieniaDataG->ID_Mechanika}}</div>
                         <div>ID_Klienta {{$zamowieniaDataG->ID_Klienta}}</div>
-                        <div>Uslugi: @foreach($uslugi as $uslugiData) @if($uslugiData->NR_ZAMOWIENIA==$zamowieniaDataG->NR_ZAMOWIENIA) ({{$uslugiData->Nazwa_Uslugi}}) @endif @endforeach</div>
-                        <div>Cena: @foreach($uslugi as $uslugiData) @if($uslugiData->NR_ZAMOWIENIA==$zamowieniaDataG->NR_ZAMOWIENIA) {{$uslugiData->Koszt}} zł @endif @endforeach</div>
+                        <div>Uslugi: @foreach($uslugi as $uslugiData) @if($uslugiData->NR_ZAMOWIENIA==$zamowieniaDataG->NR_ZAMOWIENIA) ({{$uslugiData->Nazwa_Uslugi}} - {{$uslugiData->Koszt}} zł) @endif @endforeach</div>
+                        <div>W sumie do zapłacenia: {{$zamowieniaDataG->Suma}} zł</div> 
 
                         <form action="Dodaj_Status" method="GET">
                             <div>Zamowienie: {{$zamowieniaDataG->NR_ZAMOWIENIA}}<input type="hidden" value="{{$zamowieniaDataG->NR_ZAMOWIENIA}}" name="zamow"></input></div>
@@ -198,8 +198,8 @@
                         <div>Opis: {{$zamowieniaDataEND->Opis}}</div>
                         <div>ID_Mechanika: {{$zamowieniaDataEND->ID_Mechanika}}</div>
                         <div>ID_Klienta {{$zamowieniaDataEND->ID_Klienta}}</div>
-                        <div>Uslugi: @foreach($uslugi as $uslugiData) @if($uslugiData->NR_ZAMOWIENIA==$zamowieniaDataEND->NR_ZAMOWIENIA) ({{$uslugiData->Nazwa_Uslugi}}) @endif @endforeach</div>
-                        <div>Cena: @foreach($uslugi as $uslugiData) @if($uslugiData->NR_ZAMOWIENIA==$zamowieniaDataEND->NR_ZAMOWIENIA) {{$uslugiData->Koszt}} zł @endif @endforeach</div>
+                        <div>Uslugi: @foreach($uslugi as $uslugiData) @if($uslugiData->NR_ZAMOWIENIA==$zamowieniaDataEND->NR_ZAMOWIENIA) ({{$uslugiData->Nazwa_Uslugi}} - {{$uslugiData->Koszt}} zł) @endif @endforeach</div>
+                        <div>W sumie do zapłacenia: {{$zamowieniaDataEND->Suma}} zł</div>
                     </div>
                     @endforeach
                 </div>

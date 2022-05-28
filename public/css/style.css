@@ -325,6 +325,33 @@ body {
   background-color: #181818;
 }
 
+.edycjaprofilu {
+  font-size:20px;
+  color: rgb(255, 255, 255);
+  background-color: #181818;
+  border: none;
+  border-bottom: 2px solid rgb(255, 255, 255);
+  resize: none;
+}
+
+.opisuslug {
+  color: rgb(255, 255, 255);
+  background-color: rgb(68, 7, 7);
+  border: none;
+  border-bottom: 2px solid rgb(255, 255, 255);
+  resize: none;
+  width:70%;
+  height: 100px;
+}
+
+.inputyuslug {
+  font-size:20px;
+  color: rgb(255, 255, 255);
+  background-color: rgb(68, 7, 7);
+  border: none;
+  border-bottom: 2px solid rgb(255, 255, 255);
+  resize: none;
+}
 
 /*CHECKBOXY*/
 input[type=checkbox] + label {

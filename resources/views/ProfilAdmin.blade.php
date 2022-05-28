@@ -107,8 +107,8 @@
             <div>Opis: {{$znajdzZamowienieData->Opis}}</div>
             <div>ID_Mechanika: {{$znajdzZamowienieData->ID_Mechanika}}</div>
             <div>ID_Klienta {{$znajdzZamowienieData->ID_Klienta}}</div>
-            <div>Uslugi: @foreach($znajdzOpis as $znajdzOpisData) @if($znajdzOpisData->NR_ZAMOWIENIA==$znajdzZamowienieData->NR_ZAMOWIENIA) ({{$znajdzOpisData->Nazwa_Uslugi}}) @endif @endforeach</div>
-            <div>Cena: @foreach($znajdzOpis as $znajdzOpisData) @if($znajdzOpisData->NR_ZAMOWIENIA==$znajdzZamowienieData->NR_ZAMOWIENIA) {{$znajdzOpisData->Koszt}} zł @endif @endforeach</div>
+            <div>Uslugi: @foreach($znajdzOpis as $znajdzOpisData) @if($znajdzOpisData->NR_ZAMOWIENIA==$znajdzZamowienieData->NR_ZAMOWIENIA) ({{$znajdzOpisData->Nazwa_Uslugi}} - {{$znajdzOpisData->Koszt}} zł) @endif @endforeach</div>
+            <div>W sumie do zapłacenia: {{$znajdzZamowienieData->Suma}} zł</div>
             @endforeach
             @endif
             @endif
@@ -196,8 +196,8 @@
                         <div>Opis: {{$orderData->Opis}}</div>
                         <div>ID_Mechanika: {{$orderData->ID_Mechanika}}</div>
                         <div>ID_Klienta {{$orderData->ID_Klienta}}</div>
-                        <div>Uslugi: @foreach($uslugi as $uslugiData) @if($uslugiData->NR_ZAMOWIENIA==$orderData->NR_ZAMOWIENIA) ({{$uslugiData->Nazwa_Uslugi}}) @endif @endforeach</div>
-                        <div>Cena: @foreach($uslugi as $uslugiData) @if($uslugiData->NR_ZAMOWIENIA==$orderData->NR_ZAMOWIENIA) {{$uslugiData->Koszt}} zł @endif @endforeach</div>
+                        <div>Uslugi: @foreach($uslugi as $uslugiData) @if($uslugiData->NR_ZAMOWIENIA==$orderData->NR_ZAMOWIENIA) ({{$uslugiData->Nazwa_Uslugi}} - {{$uslugiData->Koszt}} zł) @endif @endforeach</div>
+                        <div>W sumie do zapłacenia: {{$orderData->Suma}} zł</div>
                         @endforeach
                     </div>
 

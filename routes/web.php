@@ -13,7 +13,7 @@ if (session_status() == PHP_SESSION_NONE) {
 if (isset($_SESSION['newsession']) && isset($_SESSION['login'])) {
     $this->rola = $_SESSION['newsession'];
     $this->login = $_SESSION['login'];
-    $this->login = $_SESSION['id'];
+    $this->id = $_SESSION['id'];
 } else {
     $this->rola = "Zaloguj/Zarejestruj";
 }
@@ -92,3 +92,7 @@ Route::get('/UsunUzytkownikow',[EdycjaController::class,'UsunUzytkownikow']);
 Route::get('/PokazUzytkownikow',[EdycjaController::class,'ZnajdzUzytkownikow']);
 Route::get('/Akceptuj_Zlecenie',[EdycjaController::class,'AkceptujZlecenie']);
 Route::get('/Zakoncz_Status',[EdycjaController::class,'ZakonczStatus']);
+Route::get('/EdycjaUslug',[EdycjaController::class,'PrzejdzDoEdycji']);
+Route::get('/AkceptujUslugi',[EdycjaController::class,'AkceptujUslugi']);
+Route::get('/ZamowUslugi',[ZamowController::class,'ZamowUslugi']);
+Route::get('/DodajUsluge',[Dodawaniecontroller::class,'DodajUsluge']);

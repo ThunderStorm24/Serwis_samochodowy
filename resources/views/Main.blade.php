@@ -110,7 +110,7 @@
         </div>
     </div>
 
-
+@isset($powiadom) <script>alert("Pomyślnie złożono zamówienie");</script> @endif
 
 
     <div class="stopka display-flex content-space-between">
@@ -123,5 +123,6 @@
     </div>
 
 </body>
+
 
 </html>
