@@ -93,7 +93,7 @@
 
                         <form action="Dodaj_Status" method="GET">
                             <div>Zamowienie: {{$zamowieniaData->NR_ZAMOWIENIA}}<input type="hidden" value="{{$zamowieniaData->NR_ZAMOWIENIA}}" name="zamow"></input></div>
-                            <div>DODAJ OPIS (Do zamówienia {{$zamowieniaData->NR_ZAMOWIENIA}}):<div><textarea rows="1" cols="40" class="opiszamowienia" name="opis" placeholder="Tutaj dodać opis"></textarea></div>
+                            <div>DODAJ OPIS (Do zamówienia {{$zamowieniaData->NR_ZAMOWIENIA}}):<div><textarea rows="1" cols="40" class="opiszamowienia" name="opis" placeholder="Tutaj dodać opis" maxlength="500"></textarea></div>
                             </div>
                             <div>Wybierz stan realizacji (Do zamówienia {{$zamowieniaData->NR_ZAMOWIENIA}})
                                 <div><select class="statuszamowienia" name="stan">
@@ -159,7 +159,7 @@
 
                         <form action="Dodaj_Status" method="GET">
                             <div>Zamowienie: {{$zamowieniaDataG->NR_ZAMOWIENIA}}<input type="hidden" value="{{$zamowieniaDataG->NR_ZAMOWIENIA}}" name="zamow"></input></div>
-                            <div>DODAJ OPIS (Do zamówienia {{$zamowieniaDataG->NR_ZAMOWIENIA}}):<div><textarea rows="1" cols="40" class="opiszamowienia" name="opis" placeholder="Tutaj dodać opis"></textarea></div>
+                            <div>DODAJ OPIS (Do zamówienia {{$zamowieniaDataG->NR_ZAMOWIENIA}}):<div><textarea rows="1" cols="40" class="opiszamowienia" name="opis" placeholder="Tutaj dodać opis" maxlength="500"></textarea></div>
                             </div>
                             <div>Wybierz stan realizacji (Do zamówienia {{$zamowieniaDataG->NR_ZAMOWIENIA}})
                                 <div><select class="statuszamowienia" name="stan">

@@ -89,6 +89,7 @@ Route::get('/DodawanieUzytkownikow', function (){
 Route::get('/ZarejestrujAdmin',[DodawanieController::class,'RejestracjaAdmin']);
 
 Route::get('/UsunUzytkownikow',[EdycjaController::class,'UsunUzytkownikow']);
+Route::get('/UsunZamowienia',[EdycjaController::class,'UsunZamowienia']);
 Route::get('/PokazUzytkownikow',[EdycjaController::class,'ZnajdzUzytkownikow']);
 Route::get('/Akceptuj_Zlecenie',[EdycjaController::class,'AkceptujZlecenie']);
 Route::get('/Zakoncz_Status',[EdycjaController::class,'ZakonczStatus']);

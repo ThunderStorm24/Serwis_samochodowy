@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
 
+
 class SerwisController extends Controller
 {
     public function sesja()
@@ -32,28 +33,28 @@ class SerwisController extends Controller
         //Wyswietlanie uzytkownikow z rolą Mechanika
         $this->pracownicy = DB::table('uzytkownicy')
             ->where('Rola', 'Mechanik')
-            ->get();
+            ->paginate(5);
 
         //Wyswietlanie uzytkownikow z rolą Admina
         $this->admini = DB::table('uzytkownicy')
             ->where('Rola', 'Admin')
-            ->get();
+            ->paginate(5);
 
         //Wyswietlanie uzytkownikow z rolą Klienta
         $this->klienci = DB::table('uzytkownicy')
             ->where('Rola', 'Klient')
-            ->get();
+            ->paginate(5);
 
         //Wyswietlanie zamówień
         $this->order = DB::table('zamowienie')
-            ->get();
+            ->paginate(5);
     }
     public function DaneUzytkownika()
     {
         $this->sesja();
         //Wyświetlanie uzytkownika gdzie login to login z sesji na ktorej jestesmy zalogowani
         $this->uzytkownicy = DB::table('uzytkownicy')
-            ->where('Login', $this->login)
+            ->where('ID_Uzytkownika', $this->ID)
             ->get();
     }
     public function WyswietlanieAdmina()

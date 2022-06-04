@@ -16,14 +16,14 @@ class DodawanieController extends SerwisController
     {
         $req->validate(
             [
-                'imie' => 'required|regex:"[A-Z]{1}[a-z]"|min:3|max:20',
-                'nazwisko' => 'required|regex:"[A-Z]{1}[a-z]"|min:3|max:30',
-                'ulica' => 'required|regex:"[A-Z]{1}[A-Za-z\s]"|min:3|max:30',
+                'imie' => 'required|regex:"^[A-ZŁŚ]{1}+[a-ząęółśżźćń]+$"|min:3|max:20',
+                'nazwisko' => 'required|regex:"^[A-ZŁŚ]{1}+[a-ząęółśżźćń]+$"|min:3|max:30',
+                'ulica' => 'required|regex:"^[a-ząęółśżźćńA-ZĄĘÓŁŚŻŹĆŃ\s]+$"|min:3|max:30',
                 'nrdom' => 'required|regex:"^[0-9]+\/[0-9]+"|min:3|max:5',
-                'miasto' => 'required|regex:"[A-Z]{1}[A-Za-z\s]"|min:3|max:30',
+                'miasto' => 'required|regex:"^[a-ząęółśżźćńA-ZĄĘÓŁŚŻŹĆŃ\s]+$"|min:3|max:30',
                 'kod' => 'required|regex:"^[0-9]{2}\-[0-9]{3}"',
                 'telefon' => 'required|regex:"^[0-9\-\+]{12,12}$"|unique:uzytkownicy,Nr_telefonu',
-                'mail' => 'required|regex:"^[a-z0-9]+\@[a-z]+\.[a-z]+"|min:7|max:40|unique:uzytkownicy,Mail',
+                'mail' => 'required|regex:"[a-z0-9_.-]+@[a-z0-9_.-]+\.\w{2,4}"|min:7|max:40|unique:uzytkownicy,Mail',
                 'login' => 'required|regex:".\S"|min:3|max:40|unique:uzytkownicy,login',
                 'haslo' => 'required|regex:"^[A-Z]{1}.\S"|min:8|max:40',
                 'phaslo' => 'required|regex:"^[A-Z]{1}.\S"|min:8|max:40|same:haslo'

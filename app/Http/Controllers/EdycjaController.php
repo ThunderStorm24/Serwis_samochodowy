@@ -8,19 +8,31 @@ use App\Http\Controllers\DodawanieController;
 
 class EdycjaController extends DodawanieController
 {
+    public function validacjaID(Request $req)
+    {
+        $req->validate(
+            [
+                'ID_U' => 'exists:uzytkownicy,ID_Uzytkownika',
+            ],
+            [
+                
+                'exists' => 'Takiego ID Uzytkownika nie ma w naszej bazie!'
+            ]
+        );
+    }
     public function validacjaEdycji(Request $req)
     {
         $this->sesja();
         $req->validate(
             [
-                'imie' => 'required|regex:"[A-Z]{1}[a-z]"|min:3|max:20',
-                'nazwisko' => 'required|regex:"[A-Z]{1}[a-z]"|min:3|max:30',
-                'ulica' => 'required|regex:"[A-Z]{1}[A-Za-z\s]"|min:3|max:30',
+                'imie' => 'required|regex:"^[A-ZŁŚ]{1}+[a-ząęółśżźćń]+$"|min:3|max:20',
+                'nazwisko' => 'required|regex:"^[A-ZŁŚ]{1}+[a-ząęółśżźćń]+$"|min:3|max:30',
+                'ulica' => 'required|regex:"^[a-ząęółśżźćńA-ZĄĘÓŁŚŻŹĆŃ\s]+$"|min:3|max:30',
                 'nrdom' => 'required|regex:"^[0-9]+\/[0-9]+"|min:3|max:5',
-                'miasto' => 'required|regex:"[A-Z]{1}[A-Za-z\s]"|min:3|max:30',
+                'miasto' => 'required|regex:"^[a-ząęółśżźćńA-ZĄĘÓŁŚŻŹĆŃ\s]+$"|min:3|max:30',
                 'kod' => 'required|regex:"^[0-9]{2}\-[0-9]{3}"',
                 'telefon' => 'required|regex:"^[0-9\-\+]{12,12}$"|unique:uzytkownicy,Nr_telefonu,' . $this->ID . ',ID_Uzytkownika',
-                'mail' => 'required|regex:"^[a-z0-9]+\@[a-z]+\.[a-z]+"|min:7|max:40|unique:uzytkownicy,Mail,' . $this->ID . ',ID_Uzytkownika',
+                'mail' => 'required|regex:"[a-z0-9_.-]+@[a-z0-9_.-]+\.\w{2,4}"|min:7|max:40|unique:uzytkownicy,Mail,' . $this->ID . ',ID_Uzytkownika',
                 'login' => 'required|regex:".\S"|min:3|max:40"|unique:uzytkownicy,login,' . $this->ID . ',ID_Uzytkownika',
             ],
             [
@@ -60,10 +72,6 @@ class EdycjaController extends DodawanieController
     {
         //Pobranie wszystkich zmiennych do wyswietlenia widoku z danymi z sesji, z danymi uzytkownika i opisami zamowien
         $this->sesja();
-        $this->DaneUzytkownika();
-        $this->OpisZamowien();
-        $uslugi = $this->uslugi;
-        $uzytkownicy = $this->uzytkownicy;
 
         //Walidacja     
         $this->validacjaEdycji($req);
@@ -80,52 +88,10 @@ class EdycjaController extends DodawanieController
         $Login = $_GET['login'];
 
         //Aktualizujemy dane obecnie zalogowaniego uzytkownika
-        $change = DB::update('update uzytkownicy set Imie=?,Nazwisko=?,Ulica=?,Nr_domu=?,Miasto=?,Kod_Pocztowy=?,Nr_telefonu=?,Mail=?,Login=? where Login=?', [$Imie, $Nazwisko, $Ulica, $Nr, $Miasto, $Kod, $Telefon, $Mail, $Login, $this->login]);
+        $change = DB::update('update uzytkownicy set Imie=?,Nazwisko=?,Ulica=?,Nr_domu=?,Miasto=?,Kod_Pocztowy=?,Nr_telefonu=?,Mail=?,Login=? where ID_Uzytkownika=?', [$Imie, $Nazwisko, $Ulica, $Nr, $Miasto, $Kod, $Telefon, $Mail, $Login, $this->ID]);
 
-        //Teraz zwracamy widok
-        //JESLI rola to Admin
-        if ($this->rola == "Admin") {
-            //To pobierz wszystkie zmienne admina
-            $this->PanelAdmina();
-            $pracownicy = $this->pracownicy;
-            $admini = $this->admini;
-            $klienci = $this->klienci;
-            $order = $this->order;
-            //I wyswietl profil admina z waznymi zmiennymi
-            return view('ProfilAdmin', compact('uzytkownicy', 'pracownicy', 'admini', 'klienci', 'order', 'uslugi'), ['rola' => $this->rola, 'login' => $this->login, 'ID' => $this->ID]);
-        }
-        //JESLI rola to Mechanik
-        if ($this->rola == "Mechanik") {
-            //Zamowienia gdzie ID_Mechanika jest z sesji, czyli zlecenia obecnie zalogowanego mechanika
-            $this->ZamowieniaMechanika();
-            //Zamowienia gdzie ID_Mechanika jest z sesji, czyli zlecenia obecnie zalogowanego mechanika
-            $zamowienia = $this->zamowienia;
-            //Wyswietlanie na profilu zamowien do wziecia
-            $zamowieniaDoWziecia = $this->zamowieniaDoWziecia;
-            //Zamowienia Gotowe
-            $zamowieniaGotowe = $this->zamowieniaGotowe;
-            //Zamowienia Zakonczone
-            $zamowieniaZakonczone = $this->zamowieniaZakonczone;
-            //I wyswietl profil mechanika z waznymi zmiennymi
-            return view('ProfilMechanik', compact('uzytkownicy', 'zamowienia', 'uslugi', 'zamowieniaDoWziecia', 'zamowieniaGotowe','zamowieniaZakonczone'), ['rola' => $this->rola, 'login' => $this->login, 'ID' => $this->ID]);
-        }
-        //JESLI rola to Klient
-        if ($this->rola == "Klient") {
-            //To pobierz zamowienia Klienta
-            $zamowienia = DB::table('zamowienie')
-                ->where('ID_Klienta', $this->ID)
-                ->get();  
-            $zamowieniaGotowe = DB::table('zamowienie')
-                ->where('ID_Klienta', $this->ID)
-                ->where('Stan_Realizacji', 'Gotowe')
-                ->get();
-            $zamowieniaZakonczone=$this->zamowieniaZakonczone = DB::table('zamowienie')
-                ->where('ID_Klienta', $this->ID)
-                ->where('Stan_Realizacji', 'Zakończone')
-                ->get();
-            //I wyswietl profil klienta z waznymi zmiennymi
-            return view('ProfilKlienta', compact('uzytkownicy', 'zamowienia','zamowieniaGotowe','zamowieniaZakonczone', 'uslugi'), ['rola' => $this->rola, 'login' => $this->login, 'ID' => $this->ID]);
-        }
+        return redirect('/Logowanie');
+        
     }
     public function UsunKonto()
     {
@@ -133,29 +99,12 @@ class EdycjaController extends DodawanieController
         $this->sesja();
         //Usuniecie Konta gdzie Login jest taki jak w sesji
         $usun = DB::delete('delete from uzytkownicy where Login=?', [$this->login]);
+        $usunZ = DB::delete('delete from zamowienie where ID_Klienta=?', [$this->ID]);
         //Zwracamy widok Logowania
         return view('Logowanie');
     }
     public function DodajStatus()
     {
-        //Pobranie wszystkich zmiennych do wyswietlenia widoku z danymi z sesji, z wyswietlaniem mechanika i opisami zamowien
-        $this->sesja();
-        $this->WyswietlanieMechanika();
-        $this->OpisZamowien();
-        $uslugi = $this->uslugi;
-        $uzytkownicy = $this->uzytkownicy;
-
-
-        //Zamowienia gdzie ID_Mechanika jest z sesji, czyli zlecenia obecnie zalogowanego mechanika
-        $this->ZamowieniaMechanika();
-        //Zamowienia gdzie ID_Mechanika jest z sesji, czyli zlecenia obecnie zalogowanego mechanika
-        $zamowienia = $this->zamowienia;
-        //Wyswietlanie na profilu zamowien do wziecia
-        $zamowieniaDoWziecia = $this->zamowieniaDoWziecia;
-        //Zamowienia Gotowe
-        $zamowieniaGotowe = $this->zamowieniaGotowe;
-        //Zamowienia Zakonczone
-        $zamowieniaZakonczone = $this->zamowieniaZakonczone;
 
         //Pobranie danych z formularza
         $opis = $_GET['opis'];
@@ -176,24 +125,26 @@ class EdycjaController extends DodawanieController
         }
 
         //Zwracamy Profil mechanika z potrzebnymi zmiennymi
-        return view('ProfilMechanik', compact('uzytkownicy', 'zamowienia', 'uslugi', 'zamowieniaDoWziecia', 'zamowieniaGotowe', 'zamowieniaZakonczone'), ['rola' => $this->rola, 'login' => $this->login, 'ID' => $this->ID]);
+        return redirect('/Logowanie');
     }
-    public function UsunUzytkownikow()
+    public function UsunUzytkownikow(Request $req)
     {
-        //Pobranie wszystkich zmiennych do wyswietlenia widoku z danymi z sesji, z danymi uzytkownika i opisami zamowien oraz Caly panel admina
+
+        $req->validate(
+            [
+                'ID_U' => 'exists:uzytkownicy,ID_Uzytkownika',
+            ],
+            [
+                
+                'exists' => 'Takiego Numeru Zamowienia nie ma w naszej bazie!'
+            ]
+        );
+
+        //Potrzebujemy danych z sesji
         $this->sesja();
-        $this->DaneUzytkownika();
-        $this->OpisZamowien();
-        $this->PanelAdmina();
-        $pracownicy = $this->pracownicy;
-        $admini = $this->admini;
-        $klienci = $this->klienci;
-        $order = $this->order;
-        $uslugi = $this->uslugi;
-        $uzytkownicy = $this->uzytkownicy;
 
         //Pobranie z formularza ID
-        $ID_Uzytkownika = $_GET['ID'];
+        $ID_Uzytkownika = $_GET['ID_U'];
 
         //Sprawdzenie czyli admin nie chce sam siebie usunąć czy Szefa firmy o ID 5
         if ($ID_Uzytkownika == $this->ID || $ID_Uzytkownika == '5') {
@@ -206,10 +157,37 @@ class EdycjaController extends DodawanieController
                 ->delete();
         }
         //Zwracamy widok profilu admina z powrotem
-        return view('ProfilAdmin', compact('uzytkownicy', 'pracownicy', 'admini', 'klienci', 'order', 'uslugi'), ['rola' => $this->rola, 'login' => $this->login, 'ID' => $this->ID, 'message' => $message]);
+        return redirect('/Logowanie');
     }
-    public function ZnajdzUzytkownikow()
+
+    public function UsunZamowienia(Request $req)
     {
+        $req->validate(
+            [
+                'NR' => 'exists:zamowienie,NR_ZAMOWIENIA',
+            ],
+            [
+                
+                'exists' => 'Takiego Numeru Zamowienia nie ma w naszej bazie!'
+            ]
+        );
+
+
+        //Pobranie z formularza ID
+        $Nr_Zamowienia = $_GET['NR'];
+
+            //Usuwanie gdzie ID z bazy = ID z formularza
+            $delete = DB::table('zamowienie')
+                ->where('NR_ZAMOWIENIA', $Nr_Zamowienia)
+                ->delete();
+        //Zwracamy widok profilu admina z powrotem
+        return redirect('/Logowanie');
+    }
+
+    public function ZnajdzUzytkownikow(Request $req)
+    {
+        $this->validacjaID($req);
+
         //Pobranie wszystkich zmiennych do wyswietlenia widoku z danymi z sesji, z danymi uzytkownika i opisami zamowien oraz Caly panel admina
         $this->sesja();
         $this->DaneUzytkownika();
@@ -241,7 +219,7 @@ class EdycjaController extends DodawanieController
             ->get();
 
         //Zwracamy widok profilu admina z powrotem
-        return view('ProfilAdmin', compact('uzytkownicy', 'pracownicy', 'admini', 'klienci', 'order', 'uslugi', 'znajdzUzytkownika', 'znajdzOpis', 'znajdzZamowienie'), ['rola' => $this->rola, 'login' => $this->login, 'ID' => $this->ID, 'messageznajdz' => $messageznajdz]);
+        return view('ProfilAdmin', compact('uzytkownicy', 'pracownicy', 'admini', 'klienci', 'order', 'uslugi', 'znajdzUzytkownika', 'znajdzOpis', 'znajdzZamowienie'), ['rola' => $this->rola, 'login' => $this->login, 'ID' => $this->ID, 'messageznajdz' => $messageznajdz, 'ID_Uzytkownika'=>$ID_Uzytkownika]);
     }
     public function AkceptujZlecenie()
     {
@@ -271,7 +249,7 @@ class EdycjaController extends DodawanieController
         $update = DB::update('update zamowienie set Opis=? , Stan_Realizacji=? , ID_Mechanika=? where NR_ZAMOWIENIA=? ', [$opis, $stan, $this->ID, $zamow]);
 
         //Zwracamy Profil mechanika z potrzebnymi zmiennymi
-        return view('ProfilMechanik', compact('uzytkownicy', 'zamowienia', 'uslugi', 'zamowieniaDoWziecia', 'zamowieniaGotowe', 'zamowieniaZakonczone'), ['rola' => $this->rola, 'login' => $this->login, 'ID' => $this->ID]);
+        return redirect('/Logowanie');
     }
     public function ZakonczStatus()
     {
@@ -299,7 +277,7 @@ class EdycjaController extends DodawanieController
 
         $update = DB::update('update zamowienie set Stan_Realizacji=? where NR_ZAMOWIENIA=? ', [$stan, $Nr_Z]);
         //Zwracamy Profil mechanika z potrzebnymi zmiennymi
-        return view('ProfilMechanik', compact('uzytkownicy', 'zamowienia', 'uslugi', 'zamowieniaDoWziecia', 'zamowieniaGotowe', 'zamowieniaZakonczone'), ['rola' => $this->rola, 'login' => $this->login, 'ID' => $this->ID]);
+        return redirect('/Logowanie');
     }
     public function ZamowieniaMechanika()
     {

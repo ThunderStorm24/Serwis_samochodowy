@@ -74,9 +74,10 @@
 
         <form method="GET" action="PokazUzytkownikow">
             <div class="mtop-20">Wpisz ID_Uzytkownika ktorego chcesz znalezc:</div>
-            <div><input class="przycisk" type="text" pattern="[0-9]{0,15}" name="ID_U"></input><button class="przycisk" type="submit" id="button1">Znajdz</button></div>
+            <div><input class="przycisk" type="Number" pattern="[0-9]{0,15}" name="ID_U" value=""></input><button class="przycisk" type="submit" id="button1">Znajdz</button></div>
             @isset($messageznajdz)<div><b>{{$messageznajdz}}</b></div>@endif
         </form>
+        @isset($ID_Uzytkownika)<div><b><button class="przycisk" type="submit" id="button1" onclick="location='Logowanie'">OK</button></b></div>@endif
 
         @isset($znajdzUzytkownika)
         <div id="Uzytkownik">
@@ -116,11 +117,21 @@
         @endif
 
         <form method="GET" action="UsunUzytkownikow">
-            <div class="mtop-20">Wpisz ID_Uzytkownika ktorego chcesz usunac:</div>
-            <div><input class="przycisk" type="text" pattern="[0-9]{0,15}" name="ID"></input><button class="przycisk" type="submit">Usun</button></div>
+            <div class="mtop-20">Wpisz ID_Uzytkownika ktorego chcesz usunac (nie mozesz usunac siebie ani szefa firmy o ID: 5):</div>
+            <div><input class="przycisk" type="Number" pattern="[0-9]{0,15}" name="ID_U"></input><button class="przycisk" type="submit">Usun</button></div>
             @isset($message)<div><b>{{$message}}</b></div>@endif
         </form>
+        <form method="GET" action="UsunZamowienia">
+            <div class="mtop-20">Wpisz NR_ZAMOWIENIA ktory chcesz usunac:</div>
+            <div><input class="przycisk" type="Number" pattern="[0-9]{0,15}" name="NR"></input><button class="przycisk" type="submit">Usun</button></div>
+            @isset($messageZ)<div><b>{{$messageZ}}</b></div>@endif
+        </form>
         <div>
+        @if($errors->any())<div class="fs-15"><b>@foreach($errors->all() as $err) <li>{{$err}}</li> @endforeach</b></div>@endif
+        <div class="mbottom-40 text-center">
+            {{$order->links()}}
+        </div>
+
             <div class="display-flex content-space-between">
                 <div style="height:620px;width:320px;border:1px solid #ccc;font:16px Trebuchet MS, Garamond, Serif;overflow:auto;">
 
@@ -128,6 +139,7 @@
                         <h1>Pracownicy:</h1>
                     </div>
                     <div class="m-5">
+                        <div>JEST {{$pracownicy->total()}} PRACOWNIKÓW W BAZIE</div>
                         @foreach($pracownicy as $pracownicyData)
                         <div class="mtop-20">ID_Uzytkownika: {{$pracownicyData->ID_Uzytkownika}}</div>
                         <div>Imie: {{$pracownicyData->Imie}}</div>
@@ -148,6 +160,7 @@
                         <h1>Admini:</h1>
                     </div>
                     <div class="m-5">
+                    <div>JEST {{$admini->total()}} ADMINÓW W BAZIE</div>
                         @foreach($admini as $adminiData)
                         <div class="mtop-20">ID_Uzytkownika: {{$adminiData->ID_Uzytkownika}}</div>
                         <div>Imie: {{$adminiData->Imie}}</div>
@@ -168,6 +181,7 @@
                         <h1>Klienci:</h1>
                     </div>
                     <div class="m-5">
+                    <div>JEST {{$klienci->total()}} KLIENTÓW W BAZIE</div>
                         @foreach($klienci as $klienciData)
                         <div class="mtop-20">ID_Uzytkownika: {{$klienciData->ID_Uzytkownika}}</div>
                         <div>Imie: {{$klienciData->Imie}}</div>
@@ -188,6 +202,7 @@
                         <h1>Zamowienia:</h1>
                     </div>
                     <div class="m-5">
+                    <div>JEST {{$order->total()}} ZAMÓWIEŃ W BAZIE</div>
                         @foreach($order as $orderData)
                         <div class="mtop-20">Numer_Zamówienia: {{$orderData->NR_ZAMOWIENIA}}</div>
                         <div>Stan_Realizacji: {{$orderData->Stan_Realizacji}}</div>
@@ -200,8 +215,8 @@
                         <div>W sumie do zapłacenia: {{$orderData->Suma}} zł</div>
                         @endforeach
                     </div>
-
                 </div>
+                
 
             </div>
         </div>
